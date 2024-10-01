@@ -1,6 +1,7 @@
 package com.github.syndexmx.fisherstheorem.domain;
 
 import com.github.syndexmx.fisherstheorem.configurations.GenomeConfig;
+import com.github.syndexmx.fisherstheorem.utils.MathUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,5 +22,13 @@ public class Genome {
 
     Genome(Genome prototypeGenome) {
 
+    }
+
+    public double collectFitness() {
+        double joinFitness =
+                chromosomes.stream().map(chromosome -> chromosome.collectFitness())
+                        .reduce(1.0, (accumulator, fitness)
+                                -> MathUtils.collectFitness(accumulator, fitness));
+        return joinFitness;
     }
 }

@@ -18,4 +18,8 @@ public class Individual {
     @Setter
     Sex sex;
 
+    public double getFitness() {
+        return genome.collectFitness();
+    }
+
 }

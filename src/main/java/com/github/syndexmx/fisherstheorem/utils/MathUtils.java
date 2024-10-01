@@ -9,4 +9,8 @@ public class MathUtils {
     static public int getRandom(int lowerThan) {
         return random.nextInt(lowerThan);
     }
+
+    static public double collectFitness(double accumulator, double component) {
+        return accumulator * component;
+    }
 }
