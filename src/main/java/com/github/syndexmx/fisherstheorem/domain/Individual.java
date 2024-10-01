@@ -4,6 +4,10 @@ import lombok.Setter;
 
 public class Individual {
 
+    Individual(GenomeScheme genomeScheme) {
+        this.genome = new Genome(genomeScheme);
+    }
+
     Genome genome;
 
     enum Sex {

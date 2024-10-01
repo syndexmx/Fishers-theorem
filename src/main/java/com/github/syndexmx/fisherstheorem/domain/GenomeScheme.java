@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Map;
+import java.util.TreeMap;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,10 +15,13 @@ import java.util.Map;
 @Getter
 public class GenomeScheme {
 
-    private Map<Integer, Integer> scheme;
+    private TreeMap<Integer, Integer> scheme;
 
     GenomeScheme(GenomeConfig config) {
-        this.scheme = config.getMapChromosomeToGenes();
+        this.scheme = new TreeMap<Integer, Integer>();
+        for (Integer index : config.getMapChromosomeToGenes().keySet()) {
+            this.scheme.put(index, config.getMapChromosomeToGenes().get(index));
+        }
     }
 
 }

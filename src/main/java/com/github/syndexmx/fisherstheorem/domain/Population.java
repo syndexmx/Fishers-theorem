@@ -15,7 +15,7 @@ public class Population {
         males = new HashSet<Individual>();
         females = new HashSet<Individual>();
         for (int i = 0; i < populationSize; i++) {
-            Individual individual = new Individual();
+            Individual individual = new Individual(genomeScheme);
             if (MathUtils.getRandom(2)==1) {
                 individual.setSex(Individual.Sex.MALE);
                 males.add(individual);

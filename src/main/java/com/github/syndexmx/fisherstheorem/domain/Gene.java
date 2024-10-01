@@ -9,5 +9,7 @@ public class Gene {
 
     Gene(double fitness) {
         this.fitness = fitness;
+
     }
+
 }
