@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Моделирование. Проверка теоремы Фишера</title>
+    <link th:href="@{/styles/main.css}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<div>
+    <table>
+        <tr>
+            <td class="fixed">
+            </td>
+            <td>
+                <h2>    Запущено    </h2>
+            </td>
+            <td class="fixed">
+            </td>
+        </tr>
+        <tr><td></td><td></td><td></td></tr>
+        <tr>
+            <td></td>
+            <td>
+
+                <p>
+                    Симуляция начата
+                    <span th:text = "${started}"/>
+                </p>
+                <p>
+                    <form action="/rss" method="POST">
+                        <img src="images/rss40x40.png"/>
+                        <button>Обновить</button>
+                    </form>
+                </p>
+
+            </td>
+            <td></td>
+        </tr>
+
+    </table>
+
+</div>
+</body>
+</html>

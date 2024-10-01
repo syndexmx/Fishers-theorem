@@ -1,0 +1,17 @@
+body {
+    background-color: black;
+    color: lightgray;
+    background-image: url('/images/digital-dna-spiral-stockcake.jpg');
+}
+
+table {
+    width: 100%;
+}
+
+td.fixed {
+    width: 10%;
+}
+
+h1, h2, h3 {
+    color: white;
+}
