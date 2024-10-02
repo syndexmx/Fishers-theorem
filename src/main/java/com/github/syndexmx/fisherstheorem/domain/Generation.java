@@ -20,7 +20,7 @@ public class Generation {
 
     public Generation(Population population, int nextGenerationIndex) {
         this.population = population;
-        generationIndex++;
+        generationIndex = nextGenerationIndex;
     }
 
     public Generation nextGeneration(Double reproductionFactor) {
