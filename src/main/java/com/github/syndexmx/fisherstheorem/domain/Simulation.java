@@ -8,9 +8,9 @@ public class Simulation {
 
     private Generation generation;
 
-    public Simulation(SimulationConfig simulationConfig, GenomeScheme genomeScheme) {
+    public Simulation(SimulationScheme simulationScheme, GenomeScheme genomeScheme) {
         this.genomeScheme = genomeScheme;
-        Generation generation = new Generation(simulationConfig.getPopulationSize(), genomeScheme);
+        Generation generation = new Generation(simulationScheme.getPopulationSize(), genomeScheme);
     }
 
     private SimulationScheme simulationScheme;

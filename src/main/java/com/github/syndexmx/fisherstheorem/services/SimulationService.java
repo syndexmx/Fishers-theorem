@@ -28,7 +28,7 @@ public class SimulationService {
                 simulationConfig.getPopulationLimit(),
                 simulationConfig.getReproductionFactor(),
                 simulationConfig.getGenerationsLimit());
-        Simulation simulation = new Simulation(simulationConfig, genomeScheme);
+        Simulation simulation = new Simulation(simulationScheme, genomeScheme);
         for (int genNumber = 0; genNumber < simulationConfig.getGenerationsLimit(); genNumber++) {
             simulation.nextGeneration(simulationScheme);
         }
