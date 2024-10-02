@@ -6,16 +6,16 @@ import org.springframework.beans.factory.annotation.Value;
 public class SimulationScheme {
 
     @Getter
-    Integer populationSize;
+    private Integer populationSize;
 
     @Getter
-    Integer populationLimit;
+    private Integer populationLimit;
 
     @Getter
-    Double reproductionFactor;
+    private Double reproductionFactor;
 
     @Getter
-    Integer generationsLimit;
+    private Integer generationsLimit;
 
     public SimulationScheme(int populationSize, int populationLimit, double reproductionFactor,
                             int generationsLimit) {

@@ -18,7 +18,7 @@ public class Simulation {
     private GenomeScheme genomeScheme;
 
     public Generation nextGeneration(SimulationScheme simulationScheme) {
-        return generation.nextGeneration(simulationScheme.reproductionFactor);
+        return generation.nextGeneration(simulationScheme.getReproductionFactor());
     }
 
 }
