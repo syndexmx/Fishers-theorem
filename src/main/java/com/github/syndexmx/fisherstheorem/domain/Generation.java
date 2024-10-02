@@ -20,15 +20,14 @@ public class Generation {
 
     public Generation(Population population, int nextGenerationIndex) {
         this.population = population;
+        generationIndex++;
     }
 
     public Generation nextGeneration(Double reproductionFactor) {
         Population childPopulation = population.sex(reproductionFactor);
         Generation childGeneration = new Generation(childPopulation, generationIndex + 1);
-        System.out.println("Generation step-over");
+        System.out.println(generationIndex);
         return childGeneration;
     }
-
-
 
 }
