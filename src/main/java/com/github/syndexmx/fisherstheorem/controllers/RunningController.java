@@ -1,5 +1,7 @@
 package com.github.syndexmx.fisherstheorem.controllers;
 
+import com.github.syndexmx.fisherstheorem.services.SimulationMonitoringService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,15 +12,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping
 public class RunningController {
 
+    @Autowired
+    SimulationMonitoringService simulationMonitoringService;
+
     @PostMapping("/running")
     public String runningPageStart(Model model) {
-        model.addAttribute("running", "");
+        model.addAttribute("running", simulationMonitoringService.getStatus());
         return "running";
     }
 
     @GetMapping("/running")
     public String runningPage(Model model) {
-        model.addAttribute("running", "");
+        model.addAttribute("running", simulationMonitoringService.getStatus());
         return "running";
     }
 

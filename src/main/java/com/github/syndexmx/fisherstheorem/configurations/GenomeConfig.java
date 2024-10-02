@@ -16,6 +16,7 @@ public class GenomeConfig {
     Map<Integer, Integer> mapChromosomeToGenes;
 
     @Value("${simulation.genecount.reductionfactor}")
+    @Getter
     Integer geneNumberReductionFactor;
 
 

@@ -26,4 +26,16 @@ public class Population {
         }
     }
 
+    public double collectFitness() {
+        double joinFitness =
+                males.stream().map(individ -> individ.collectFitness())
+                        .reduce(1.0, (accumulator, fitness)
+                                -> MathUtils.collectFitness(accumulator, fitness));
+        joinFitness =
+                females.stream().map(individ -> individ.collectFitness())
+                        .reduce(joinFitness, (accumulator, fitness)
+                                -> MathUtils.collectFitness(accumulator, fitness));
+        return joinFitness;
+    }
+
 }

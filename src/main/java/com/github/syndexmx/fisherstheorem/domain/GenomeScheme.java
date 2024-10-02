@@ -15,13 +15,19 @@ import java.util.TreeMap;
 @Getter
 public class GenomeScheme {
 
+    @Getter
     private TreeMap<Integer, Integer> scheme;
 
-    GenomeScheme(GenomeConfig config) {
+    public GenomeScheme(GenomeConfig config) {
         this.scheme = new TreeMap<Integer, Integer>();
         for (Integer index : config.getMapChromosomeToGenes().keySet()) {
-            this.scheme.put(index, config.getMapChromosomeToGenes().get(index));
+            actualGenes = config.getMapChromosomeToGenes().get(index)
+                    / config.getGeneNumberReductionFactor();
+            this.scheme.put(index, actualGenes);
         }
     }
+
+    @Getter
+    int actualGenes = 0;
 
 }
