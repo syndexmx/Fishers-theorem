@@ -1,22 +1,40 @@
 package com.github.syndexmx.fisherstheorem.domain;
 
 import com.github.syndexmx.fisherstheorem.utils.MathUtils;
+import lombok.Getter;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Population {
 
-    Set<Individual> males;
+    @Getter
+    List<Individual> males;
 
-    Set<Individual> females;
+    @Getter
+    List<Individual> females;
+
+    Population() {
+        this.males = new ArrayList<Individual>();
+        this.females = new ArrayList<Individual>();
+    }
+
+    Population(Population population) {
+        this.males = population.getMales();
+        this.females = population.getFemales();
+    }
+
+    Population(List<Individual> males, List<Individual> females) {
+        this.males = males;
+        this.females = females;
+    }
 
     Population(int populationSize, GenomeScheme genomeScheme) {
-        males = new HashSet<Individual>();
-        females = new HashSet<Individual>();
+        males = new ArrayList<Individual>();
+        females = new ArrayList<Individual>();
         for (int i = 0; i < populationSize; i++) {
             Individual individual = new Individual(genomeScheme);
-            if (MathUtils.getRandom(2)==1) {
+            if (MathUtils.getRandom(2) == 1) {
                 individual.setSex(Individual.Sex.MALE);
                 males.add(individual);
             } else {
@@ -24,6 +42,14 @@ public class Population {
                 females.add(individual);
             }
         }
+    }
+
+    public Population sex(Double reproductionFactorPerc) {
+        Population childPopulation = new Population();
+
+        // TODO : Make Sex
+
+        return childPopulation;
     }
 
     public double collectFitness() {

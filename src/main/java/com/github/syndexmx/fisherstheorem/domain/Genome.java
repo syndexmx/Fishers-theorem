@@ -12,7 +12,7 @@ public class Genome {
 
     List<Chromosome> chromosomes;
 
-    Genome(GenomeScheme genomeScheme) {
+    public Genome(GenomeScheme genomeScheme) {
         chromosomes = new ArrayList<Chromosome>();
         for (Integer index : genomeScheme.getScheme().keySet()) {
             Chromosome chromosome = new Chromosome(genomeScheme.getScheme().get(index));
