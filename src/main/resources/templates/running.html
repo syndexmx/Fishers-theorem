@@ -7,39 +7,34 @@
 </head>
 <body>
 
-<div>
-    <table>
-        <tr>
-            <td class="fixed">
-            </td>
-            <td>
-                <h2>    Запущено    </h2>
-            </td>
-            <td class="fixed">
-            </td>
-        </tr>
-        <tr><td></td><td></td><td></td></tr>
-        <tr>
-            <td></td>
-            <td>
+<div class="container">
 
-                <p>
-                    Симуляция начата
-                    <span th:text = "${started}"/>
-                </p>
-                <p>
-                    <form action="/rss" method="POST">
-                        <img src="images/rss40x40.png"/>
-                        <button>Обновить</button>
-                    </form>
-                </p>
+    <h2>    Моделирование. Проверка теоремы Фишера    </h2>
 
-            </td>
-            <td></td>
-        </tr>
+    <h3>Симуляция начата</h3>
+    <p>
+        <span th:text = "${running}"/>
+    </p>
+    </p>
+    <p>
+    <div class="sbutton">
+        <form action="/running" method="GET" class="centeredcontent">
+            <button class="sbutton">
+                <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <b>Обновить</b>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;
+            </button>
+        </form>
+    </div>
+    </p>
+    <p class="centeredcontent">
+        <img src="images/evo.png"/>
+        <br>
+    </p>
 
-    </table>
 
 </div>
+
+
 </body>
 </html>
