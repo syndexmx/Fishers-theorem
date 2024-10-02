@@ -2,16 +2,41 @@ body {
     background-color: black;
     color: lightgray;
     background-image: url('/images/digital-dna-spiral-stockcake.jpg');
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
-table {
-    width: 100%;
-}
-
-td.fixed {
-    width: 10%;
-}
 
 h1, h2, h3 {
     color: white;
+    text-align: center;
+}
+
+img {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+div {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+#sbutton {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: larger;
+    font-weight: bold;
+}
+
+#centeredcontent {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: larger;
+    font-weight: bold;
 }

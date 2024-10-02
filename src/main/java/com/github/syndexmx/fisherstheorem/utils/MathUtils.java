@@ -11,6 +11,6 @@ public class MathUtils {
     }
 
     static public double collectFitness(double accumulator, double component) {
-        return accumulator * component;
+        return accumulator + component;
     }
 }

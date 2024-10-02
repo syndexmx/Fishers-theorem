@@ -7,39 +7,62 @@
 </head>
 <body>
 
-<div>
-    <table>
-        <tr>
-            <td class="fixed">
-            </td>
-            <td>
-                <h2>    Моделирование. Проверка теоремы Фишера    </h2>
-            </td>
-            <td class="fixed">
-            </td>
-        </tr>
-        <tr><td></td><td></td><td></td></tr>
-        <tr>
-            <td></td>
-            <td>
+<div class="container">
 
-                <p>
-                    ****************************
-                    <span th:text = "${running}"/>
-                </p>
-                <p>
-                    <form action="/running" method="POST">
-                        <img src="images/evo.png"/>
-                        <br>
-                        <button>Запустить моделирование</button>
-                    </form>
-                </p>
+    <h2>    Моделирование. Проверка теоремы Фишера    </h2>
 
-            </td>
-            <td></td>
-        </tr>
+    <p>
+        <span th:text = "${running}"/>
+    <p>
+        <b>Формулировка теоремы</b><br/>
+        'Скорость нарастания приспособленности любого организма в любой момент
+        равна генетической вариации в этот момент.'
+    </p>
+    </p>
+    <p>
+        <div class="sbutton">
+            <form action="/running" method="POST" class="centeredcontent">
+                <img src="images/evo.png"/>
+                <br>
+                <button class="sbutton">
+                    <br>&nbsp;&nbsp;&nbsp;
+                    <b>Запустить моделирование</b>
+                    &nbsp;&nbsp;&nbsp;<br>&nbsp;
+                </button>
+            </form>
+        </div>
+    </p>
 
-    </table>
+    <p></p>
+            <hr/>
+    <p></p>
+
+    <h2>Фундаментальная теория отбора Фишера</h2>
+    <p>
+        <i>Price GR (1972b)</i>
+        <b>Fisher’s ‘fundamental theorem’ made clear.</b>
+        <i>Ann Hum Genet Lond 36:129–140</i>
+        <a href="https://doi.org/10.1111/j.1469-1809.1972.tb00764.x">
+            <div class="centeredcontent">
+                <img class="centeredcontent" src="images/ahgenet.png"/>
+            </div>
+            doi.org/10.1111/j.1469-1809.1972.tb00764.x
+        </a>
+    </p>
+    <p>
+        В формальной математической записи суть теоремы описывается следующими уравнениями:
+        <br>
+        <img src="images/main-formula.png"/>
+        <br>
+        где: m - приспособленность
+        <br> t - время
+        <br> Pi - репродуктивность каждой субпопуляции с заданными вариациями
+    </p>
+    <p>
+        Вместе с потоком новых мутаций уравнение:
+        <br>
+        <img src="images/with-mutations-formula.png"/>
+    </p>
 
 </div>
 </body>
