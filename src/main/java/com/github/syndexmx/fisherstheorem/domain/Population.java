@@ -14,6 +14,9 @@ public class Population {
     @Getter
     List<Individual> females;
 
+    @Getter
+    SimulationScheme simulationScheme;
+
     Population() {
         this.males = new ArrayList<Individual>();
         this.females = new ArrayList<Individual>();
@@ -32,8 +35,9 @@ public class Population {
     Population(SimulationScheme simulationScheme, GenomeScheme genomeScheme) {
         males = new ArrayList<Individual>();
         females = new ArrayList<Individual>();
+        this.simulationScheme = simulationScheme;
         for (int i = 0; i < simulationScheme.getPopulationSize(); i++) {
-            Individual individual = new Individual(genomeScheme);
+            Individual individual = new Individual(genomeScheme, simulationScheme);
             if (MathUtils.getRandom(2) == 1) {
                 males.add(individual);
             } else {
@@ -44,9 +48,19 @@ public class Population {
 
     public Population sex(Double reproductionFactor) {
         Population childPopulation = new Population();
-
-        // TODO : Make Sex
-
+        long childPopulationSize = Math.round((males.size() + females.size()) * reproductionFactor);
+        for (int i = 0; i < childPopulationSize; i++) {
+            int fatherIndex = MathUtils.getRandom(males.size());
+            int motherIndex = MathUtils.getRandom(females.size());
+            Individual child = new Individual(males.get(fatherIndex),
+                    females.get(motherIndex),
+                    simulationScheme.getMutationProfile());
+            if (MathUtils.getRandom(2) == 1) {
+                males.add(child);
+            } else {
+                females.add(child);
+            }
+        }
         return childPopulation;
     }
 
