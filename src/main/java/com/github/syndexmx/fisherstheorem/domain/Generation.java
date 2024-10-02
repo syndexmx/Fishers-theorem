@@ -1,5 +1,6 @@
 package com.github.syndexmx.fisherstheorem.domain;
 
+import com.github.syndexmx.fisherstheorem.configurations.SimulationConfig;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
@@ -15,7 +16,7 @@ public class Generation {
         this.population = population;
     }
 
-    public Generation nextGeneration(Double reproductionFactor) {
+    public Generation nextGeneration(SimulationConfig simulationConfig, Double reproductionFactor) {
         Population childPopulation = population.sex(reproductionFactor);
         Generation childGeneration = new Generation(childPopulation);
         System.out.println("Generation step-over");

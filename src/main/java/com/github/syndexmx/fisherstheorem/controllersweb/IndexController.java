@@ -1,4 +1,4 @@
-package com.github.syndexmx.fisherstheorem.controllers;
+package com.github.syndexmx.fisherstheorem.controllersweb;
 
 import com.github.syndexmx.fisherstheorem.services.SimulationService;
 import org.springframework.beans.factory.annotation.Autowired;

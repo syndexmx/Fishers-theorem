@@ -26,7 +26,7 @@ public class SimulationService {
         }
         Simulation simulation = new Simulation(simulationConfig, genomeConfig);
         for (int genNumber = 0; genNumber < simulationConfig.getGenerationsLimit(); genNumber++) {
-            simulation.nextGeneration();
+            simulation.nextGeneration(simulationConfig);
         }
     }
 

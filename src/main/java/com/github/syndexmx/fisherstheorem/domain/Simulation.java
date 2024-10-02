@@ -17,8 +17,8 @@ public class Simulation {
 
     private GenomeConfig genomeConfig;
 
-    public Generation nextGeneration() {
-        return generation.nextGeneration(simulationConfig.getReproductionFactor());
+    public Generation nextGeneration(SimulationConfig simulationConfig) {
+        return generation.nextGeneration(simulationConfig, simulationConfig.getReproductionFactor());
     }
 
 }
