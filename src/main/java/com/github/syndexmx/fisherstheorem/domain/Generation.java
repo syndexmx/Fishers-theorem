@@ -3,12 +3,14 @@ package com.github.syndexmx.fisherstheorem.domain;
 import com.github.syndexmx.fisherstheorem.configurations.SimulationConfig;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @NoArgsConstructor
+@Slf4j
 public class Generation {
 
     @Getter
-    private int generationIndex;
+    private Integer generationIndex;
 
     @Getter
     private Population population;
@@ -26,7 +28,7 @@ public class Generation {
     public Generation nextGeneration(Double reproductionFactor) {
         Population childPopulation = population.sex(reproductionFactor);
         Generation childGeneration = new Generation(childPopulation, generationIndex + 1);
-        System.out.println(generationIndex);
+        log.debug(generationIndex.toString());
         return childGeneration;
     }
 
