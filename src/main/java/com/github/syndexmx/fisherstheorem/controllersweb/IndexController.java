@@ -11,13 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping
 public class IndexController {
 
-    @Autowired
-    SimulationService simulationService;
-
     @GetMapping("/index")
     public String indexPage(Model model) {
         model.addAttribute("running", "");
-        simulationService.simulate();
         return "index";
     }
 }
