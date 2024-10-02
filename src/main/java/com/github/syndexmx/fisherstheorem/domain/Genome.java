@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 
-public class Genome {
+public class Genome implements Cloneable {
 
     @Setter
     @Getter

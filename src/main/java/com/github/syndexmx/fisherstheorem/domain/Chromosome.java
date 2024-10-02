@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.function.BiConsumer;
 
 @NoArgsConstructor
-public class Chromosome {
+public class Chromosome implements Cloneable {
 
     @Getter
     @Setter
