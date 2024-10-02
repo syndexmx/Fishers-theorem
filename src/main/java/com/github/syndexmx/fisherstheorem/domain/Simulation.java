@@ -10,15 +10,20 @@ public class Simulation {
 
     public Simulation(SimulationScheme simulationScheme, GenomeScheme genomeScheme) {
         this.genomeScheme = genomeScheme;
-        Generation generation = new Generation(simulationScheme.getPopulationSize(), genomeScheme);
+        generation = new Generation(simulationScheme.getPopulationSize(), genomeScheme);
     }
 
     private SimulationScheme simulationScheme;
 
     private GenomeScheme genomeScheme;
 
-    public Generation nextGeneration(SimulationScheme simulationScheme) {
-        return generation.nextGeneration(simulationScheme.getReproductionFactor());
+    public int getGenerationIndex() {
+        return generation.getGenerationIndex();
     }
 
+    public void run() {
+        while (generation.getGenerationIndex() < simulationScheme.getGenerationsLimit()) {
+            generation.nextGeneration(simulationScheme.getReproductionFactor());
+        }
+    }
 }

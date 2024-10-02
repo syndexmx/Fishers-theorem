@@ -22,16 +22,16 @@ public class SimulationService {
     private SimulationScheme simulationScheme;
 
     public void simulate() {
-        genomeScheme = new GenomeScheme(genomeConfig.getMapChromosomeToGenes(),
+        genomeScheme = new GenomeScheme(
+                genomeConfig.getMapChromosomeToGenes(),
                 genomeConfig.getGeneNumberReductionFactor());
-        simulationScheme = new SimulationScheme(simulationConfig.getPopulationSize(),
+        simulationScheme = new SimulationScheme(
+                simulationConfig.getPopulationSize(),
                 simulationConfig.getPopulationLimit(),
                 simulationConfig.getReproductionFactor(),
                 simulationConfig.getGenerationsLimit());
         Simulation simulation = new Simulation(simulationScheme, genomeScheme);
-        for (int genNumber = 0; genNumber < simulationConfig.getGenerationsLimit(); genNumber++) {
-            simulation.nextGeneration(simulationScheme);
-        }
+        simulation.run();
     }
 
 }
