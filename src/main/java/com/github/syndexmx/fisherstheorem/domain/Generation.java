@@ -18,13 +18,13 @@ public class Generation {
         generationIndex = 0;
     }
 
-    public Generation(Population population) {
+    public Generation(Population population, int nextGenerationIndex) {
         this.population = population;
     }
 
     public Generation nextGeneration(Double reproductionFactor) {
         Population childPopulation = population.sex(reproductionFactor);
-        Generation childGeneration = new Generation(childPopulation);
+        Generation childGeneration = new Generation(childPopulation, generationIndex + 1);
         System.out.println("Generation step-over");
         return childGeneration;
     }

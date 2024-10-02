@@ -21,7 +21,7 @@ public class Simulation {
 
     public void run() {
         while (generation.getGenerationIndex() < simulationScheme.getGenerationsLimit()) {
-            generation.nextGeneration(simulationScheme.getReproductionFactor());
+            generation = generation.nextGeneration(simulationScheme.getReproductionFactor());
         }
     }
 }
