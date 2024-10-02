@@ -1,25 +1,24 @@
 package com.github.syndexmx.fisherstheorem.domain;
 
+import com.github.syndexmx.fisherstheorem.utils.MathUtils;
+import lombok.Getter;
 import lombok.Setter;
 
 public class Individual {
 
     Individual(GenomeScheme genomeScheme) {
-        this.genome = new Genome(genomeScheme);
+        this.paternalGenome = new Genome(genomeScheme);
+        this.maternalGenome = new Genome(genomeScheme);
     }
 
-    Genome genome;
+    @Getter
+    private Genome paternalGenome;
 
-    enum Sex {
-        MALE,
-        FEMALE
-    }
-
-    @Setter
-    Sex sex;
+    @Getter
+    private Genome maternalGenome;
 
     public double collectFitness() {
-        return genome.collectFitness();
+        return MathUtils.collectFitness(paternalGenome.collectFitness(), maternalGenome.collectFitness());
     }
 
 }

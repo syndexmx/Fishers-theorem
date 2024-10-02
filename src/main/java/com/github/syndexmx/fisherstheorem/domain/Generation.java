@@ -15,8 +15,8 @@ public class Generation {
     @Getter
     private Population population;
 
-    public Generation(int populationSize, GenomeScheme genomeScheme) {
-        population = new Population(populationSize, genomeScheme);
+    public Generation(SimulationScheme simulationScheme, GenomeScheme genomeScheme) {
+        population = new Population(simulationScheme, genomeScheme);
         generationIndex = 0;
     }
 
@@ -27,8 +27,11 @@ public class Generation {
 
     public Generation nextGeneration(Double reproductionFactor) {
         Population childPopulation = population.sex(reproductionFactor);
-        Generation childGeneration = new Generation(childPopulation, generationIndex + 1);
-        log.debug(generationIndex.toString());
+
+        Generation childGeneration = new Generation(childPopulation,
+                generationIndex + 1);
+        Double fitness = population.collectFitness();
+        log.warn(generationIndex.toString() + ' ' + fitness.toString());
         return childGeneration;
     }
 

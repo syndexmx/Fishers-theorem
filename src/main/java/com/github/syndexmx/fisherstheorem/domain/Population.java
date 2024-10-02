@@ -29,16 +29,14 @@ public class Population {
         this.females = females;
     }
 
-    Population(int populationSize, GenomeScheme genomeScheme) {
+    Population(SimulationScheme simulationScheme, GenomeScheme genomeScheme) {
         males = new ArrayList<Individual>();
         females = new ArrayList<Individual>();
-        for (int i = 0; i < populationSize; i++) {
+        for (int i = 0; i < simulationScheme.getPopulationSize(); i++) {
             Individual individual = new Individual(genomeScheme);
             if (MathUtils.getRandom(2) == 1) {
-                individual.setSex(Individual.Sex.MALE);
                 males.add(individual);
             } else {
-                individual.setSex(Individual.Sex.FEMALE);
                 females.add(individual);
             }
         }
