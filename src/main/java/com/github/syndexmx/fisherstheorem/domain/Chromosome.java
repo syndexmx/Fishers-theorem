@@ -1,13 +1,19 @@
 package com.github.syndexmx.fisherstheorem.domain;
 
 import com.github.syndexmx.fisherstheorem.utils.MathUtils;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
+@NoArgsConstructor
 public class Chromosome {
 
+    @Getter
+    @Setter
     List<Gene> genes;
 
     public Chromosome(Integer numberGenes) {
@@ -25,4 +31,12 @@ public class Chromosome {
         return joinFitness;
     }
 
+    public Chromosome mutate(double mutationEffect) {
+        Chromosome newChromosome = new Chromosome();
+        List<Gene> newGenes = genes.stream().toList();
+        int mutatedGeneIndex = MathUtils.getRandom(genes.size());
+        newGenes.get(mutatedGeneIndex).mutate(mutationEffect);
+        newChromosome.setGenes(newGenes);
+        return null;
+    }
 }

@@ -2,9 +2,9 @@ package com.github.syndexmx.fisherstheorem.domain;
 
 import lombok.Getter;
 
-@Getter
 public class Gene {
 
+    @Getter
     double fitness = 1.0;
 
     Gene(double fitness) {
@@ -12,4 +12,7 @@ public class Gene {
 
     }
 
+    public void mutate(double mutationEffect) {
+        fitness +=mutationEffect;
+    }
 }

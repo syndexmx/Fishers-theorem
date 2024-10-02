@@ -68,9 +68,9 @@ public class Individual {
 
     private void mutate(double mutationEffect) {
         if (MathUtils.getRandom(2) == 0) {
-            paternalGenome.mutate(mutationEffect);
+            paternalGenome = paternalGenome.mutate(mutationEffect);
         } else {
-            maternalGenome.mutate(mutationEffect);
+            maternalGenome = maternalGenome.mutate(mutationEffect);
         }
     }
 
