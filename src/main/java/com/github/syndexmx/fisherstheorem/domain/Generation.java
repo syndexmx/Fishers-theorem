@@ -16,7 +16,7 @@ public class Generation {
         this.population = population;
     }
 
-    public Generation nextGeneration(SimulationConfig simulationConfig, Double reproductionFactor) {
+    public Generation nextGeneration(Double reproductionFactor) {
         Population childPopulation = population.sex(reproductionFactor);
         Generation childGeneration = new Generation(childPopulation);
         System.out.println("Generation step-over");

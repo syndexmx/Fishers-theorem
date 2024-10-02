@@ -8,17 +8,17 @@ public class Simulation {
 
     private Generation generation;
 
-    public Simulation(SimulationConfig simulationConfig, GenomeConfig genomeConfig) {
-        GenomeScheme genomeScheme = new GenomeScheme(genomeConfig);
+    public Simulation(SimulationConfig simulationConfig, GenomeScheme genomeScheme) {
+        this.genomeScheme = genomeScheme;
         Generation generation = new Generation(simulationConfig.getPopulationSize(), genomeScheme);
     }
 
-    private SimulationConfig simulationConfig;
+    private SimulationScheme simulationScheme;
 
-    private GenomeConfig genomeConfig;
+    private GenomeScheme genomeScheme;
 
-    public Generation nextGeneration(SimulationConfig simulationConfig) {
-        return generation.nextGeneration(simulationConfig, simulationConfig.getReproductionFactor());
+    public Generation nextGeneration(SimulationScheme simulationScheme) {
+        return generation.nextGeneration(simulationScheme.reproductionFactor);
     }
 
 }

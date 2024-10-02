@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -16,14 +18,18 @@ import java.util.TreeMap;
 public class GenomeScheme {
 
     @Getter
-    private TreeMap<Integer, Integer> scheme;
+    private List<Integer> scheme;
 
-    public GenomeScheme(GenomeConfig config) {
-        this.scheme = new TreeMap<Integer, Integer>();
-        for (Integer index : config.getMapChromosomeToGenes().keySet()) {
-            actualGenes = config.getMapChromosomeToGenes().get(index)
-                    / config.getGeneNumberReductionFactor();
-            this.scheme.put(index, actualGenes);
+    public GenomeScheme(Map<Integer, Integer> genomeMap, Integer geneNumberReductionFactor) {
+        TreeMap<Integer, Integer> schemeTreeMap = new TreeMap<Integer, Integer>();
+        for (Integer index : genomeMap.keySet()) {
+            actualGenes = genomeMap.get(index)
+                    / geneNumberReductionFactor;
+            schemeTreeMap.put(index, actualGenes);
+        }
+        scheme = new ArrayList<Integer>();
+        for (Integer index : schemeTreeMap.keySet()) {
+            scheme.add(schemeTreeMap.get(index));
         }
     }
 

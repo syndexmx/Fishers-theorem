@@ -44,7 +44,7 @@ public class Population {
         }
     }
 
-    public Population sex(Double reproductionFactorPerc) {
+    public Population sex(Double reproductionFactor) {
         Population childPopulation = new Population();
 
         // TODO : Make Sex
