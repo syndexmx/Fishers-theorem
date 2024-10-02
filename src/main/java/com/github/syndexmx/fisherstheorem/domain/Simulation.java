@@ -10,7 +10,8 @@ public class Simulation {
 
     public Simulation(SimulationScheme simulationScheme, GenomeScheme genomeScheme) {
         this.genomeScheme = genomeScheme;
-        generation = new Generation(simulationScheme.getPopulationSize(), genomeScheme);
+        this.simulationScheme = simulationScheme;
+        generation = new Generation(simulationScheme.getPopulationSize(), this.genomeScheme);
     }
 
     private SimulationScheme simulationScheme;
