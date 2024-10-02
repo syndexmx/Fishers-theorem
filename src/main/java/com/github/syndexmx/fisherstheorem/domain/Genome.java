@@ -31,4 +31,8 @@ public class Genome {
                                 -> MathUtils.collectFitness(accumulator, fitness));
         return joinFitness;
     }
+
+    public void mutate(double mutationEffect) {
+        // TO DO Mutation
+    }
 }

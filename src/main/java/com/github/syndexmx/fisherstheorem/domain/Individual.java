@@ -2,7 +2,6 @@ package com.github.syndexmx.fisherstheorem.domain;
 
 import com.github.syndexmx.fisherstheorem.utils.MathUtils;
 import lombok.Getter;
-import lombok.Setter;
 
 public class Individual {
 
@@ -23,6 +22,7 @@ public class Individual {
     @Getter
     private Genome maternalGenome;
 
+    // Birth
     public Individual(Individual father, Individual mother, MutationProfile mutationProfile) {
         Genome fromFather = father.getHaploGenome();
         Genome fromMother = mother.getHaploGenome();
@@ -30,7 +30,7 @@ public class Individual {
         paternalGenome = fromFather;
         maternalGenome = fromMother;
         this.mutationProfile = mutationProfile;
-        // TO DO mutation
+        tryToMutate();
     }
 
     public double collectFitness() {
@@ -42,6 +42,35 @@ public class Individual {
             return paternalGenome;
         } else {
             return maternalGenome;
+        }
+    }
+
+    private void tryToMutate() {
+        final int SEEDING_CYCLES_COUNT = 10;
+        final double REDUCED_BENEFICIAL_RATE = mutationProfile.getBeneficialMutationsRate()
+                / SEEDING_CYCLES_COUNT;
+        final double REDUCED_DELETERIOUS_RATE = mutationProfile.getDeleteriousMutationsRate()
+                / SEEDING_CYCLES_COUNT;
+        final int RANDOMIZATION_AMPLITUDE = 100000000;
+        final long BENEFICIAL_MUTATION_CRITERION = Math.round(RANDOMIZATION_AMPLITUDE
+                * REDUCED_BENEFICIAL_RATE);
+        final long DELETERIOUS_MUTATION_CRITERION = Math.round(RANDOMIZATION_AMPLITUDE
+                * REDUCED_DELETERIOUS_RATE);
+        for (int cycle = 0; cycle < SEEDING_CYCLES_COUNT; cycle++) {
+            if (MathUtils.getRandom(RANDOMIZATION_AMPLITUDE) < BENEFICIAL_MUTATION_CRITERION) {
+                mutate(mutationProfile.getBeneficialMutationsEffect());
+            }
+            if (MathUtils.getRandom(RANDOMIZATION_AMPLITUDE) < DELETERIOUS_MUTATION_CRITERION) {
+                mutate(-mutationProfile.getDeleteriousMutationsEffect());
+            }
+        }
+    }
+
+    private void mutate(double mutationEffect) {
+        if (MathUtils.getRandom(2) == 0) {
+            paternalGenome.mutate(mutationEffect);
+        } else {
+            maternalGenome.mutate(mutationEffect);
         }
     }
 
