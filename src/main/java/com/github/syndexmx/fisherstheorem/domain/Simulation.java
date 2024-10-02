@@ -19,7 +19,7 @@ public class Simulation {
         return generation.getGenerationIndex();
     }
 
-    public void run() {
+    public void runSimulation() {
         while (generation.getGenerationIndex() < simulationScheme.getGenerationsLimit()) {
             generation = generation.nextGeneration(simulationScheme.getReproductionFactor());
         }

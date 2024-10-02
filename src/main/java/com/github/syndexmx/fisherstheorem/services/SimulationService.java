@@ -31,7 +31,12 @@ public class SimulationService {
                 simulationConfig.getReproductionFactor(),
                 simulationConfig.getGenerationsLimit());
         Simulation simulation = new Simulation(simulationScheme, genomeScheme);
-        simulation.run();
+        Thread thread = new Thread(){
+            public void run() {
+                simulation.runSimulation();
+            }
+        };
+        thread.start();
     }
 
 }
