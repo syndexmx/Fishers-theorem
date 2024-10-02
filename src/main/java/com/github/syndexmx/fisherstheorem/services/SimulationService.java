@@ -19,8 +19,6 @@ public class SimulationService {
         for (Integer chromosomeNumber : genomeScheme.getScheme().keySet()) {
             geneCount += genomeScheme.getScheme().get(chromosomeNumber);
         }
-        System.out.print("Gene count: ");
-        System.out.println(geneCount);
     }
 
 }
