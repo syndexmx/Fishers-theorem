@@ -17,6 +17,7 @@ public class Genome implements Cloneable {
     private List<Chromosome> chromosomes;
 
     @Getter
+    @Setter
     private GenomeScheme genomeScheme;
 
     public Genome(GenomeScheme genomeScheme) {
@@ -35,18 +36,24 @@ public class Genome implements Cloneable {
         return joinFitness;
     }
 
-    public Genome mutate(double mutationEffect) {
-        Genome newGenome = this.cloneGenome();
+    public void mutate(double mutationEffect) {
         int mutatedChromosome = genomeScheme.getGeneToChromosomeMap().get(
-                MathUtils.getRandom(genomeScheme.getGenesOverall()));
+            MathUtils.getRandom(genomeScheme.getGenesOverall()));
         chromosomes.set(mutatedChromosome, chromosomes.get(mutatedChromosome).mutate(mutationEffect));
-        return newGenome;
     }
 
-    private Genome cloneGenome() {
-        Genome newGenome = new Genome(this.genomeScheme);
-        List<Chromosome> newChromosomes = chromosomes.stream().toList();
-        newGenome.setChromosomes(newChromosomes);
-        return newGenome;
+
+    @Override
+    public Genome clone() {
+        try {
+            Genome clone = (Genome) super.clone();
+            List<Chromosome> clonedChromosomes = new ArrayList<Chromosome>();
+            clone.chromosomes = clonedChromosomes;
+            this.chromosomes.stream().forEach(chromo -> clonedChromosomes.add(chromo.clone()));
+            clone.genomeScheme = this.genomeScheme;
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

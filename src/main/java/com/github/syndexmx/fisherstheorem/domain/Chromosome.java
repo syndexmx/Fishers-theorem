@@ -39,4 +39,17 @@ public class Chromosome implements Cloneable {
         newChromosome.setGenes(newGenes);
         return null;
     }
+
+    @Override
+    public Chromosome clone() {
+        try {
+            Chromosome clone = (Chromosome) super.clone();
+            List<Gene> clonedGenes = new ArrayList<>();
+            this.getGenes().stream().forEach(gene -> clonedGenes.add(gene.clone()));
+            clone.setGenes(clonedGenes);
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
 }

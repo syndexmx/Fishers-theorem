@@ -2,17 +2,27 @@ package com.github.syndexmx.fisherstheorem.domain;
 
 import com.github.syndexmx.fisherstheorem.utils.MathUtils;
 import lombok.Getter;
+import lombok.Setter;
 
 public class Individual {
 
+    @Setter
+    @Getter
     private GenomeScheme genomeScheme;
 
+    @Setter
+    @Getter
     private MutationProfile mutationProfile;
+
+    @Setter
+    @Getter
+    private SimulationScheme simulationScheme;
 
     Individual(GenomeScheme genomeScheme, SimulationScheme simulationScheme) {
         this.paternalGenome = new Genome(genomeScheme);
         this.maternalGenome = new Genome(genomeScheme);
         this.genomeScheme = genomeScheme;
+        this.simulationScheme = simulationScheme;
         this.mutationProfile = simulationScheme.getMutationProfile();
     }
 
@@ -24,11 +34,12 @@ public class Individual {
 
     // Birth
     public Individual(Individual father, Individual mother, MutationProfile mutationProfile) {
+        Individual child = new Individual(genomeScheme, simulationScheme);
         Genome fromFather = father.getHaploGenome();
         Genome fromMother = mother.getHaploGenome();
-        // TO DO splicing
-        paternalGenome = fromFather;
-        maternalGenome = fromMother;
+        // TO DO recombination and splicing
+        child.paternalGenome = fromFather;
+        child.maternalGenome = fromMother;
         this.mutationProfile = mutationProfile;
         tryToMutate();
     }
@@ -39,9 +50,9 @@ public class Individual {
 
     public Genome getHaploGenome() {
         if (MathUtils.getRandom(2) == 0) {
-            return paternalGenome;
+            return paternalGenome.clone();
         } else {
-            return maternalGenome;
+            return maternalGenome.clone();
         }
     }
 
@@ -68,10 +79,9 @@ public class Individual {
 
     private void mutate(double mutationEffect) {
         if (MathUtils.getRandom(2) == 0) {
-            paternalGenome = paternalGenome.mutate(mutationEffect);
+            paternalGenome.mutate(mutationEffect);
         } else {
-            maternalGenome = maternalGenome.mutate(mutationEffect);
+            maternalGenome.mutate(mutationEffect);
         }
     }
-
 }
