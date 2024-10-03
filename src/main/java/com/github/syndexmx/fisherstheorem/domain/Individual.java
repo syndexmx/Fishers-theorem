@@ -6,17 +6,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-@NoArgsConstructor
 @Slf4j
 public class Individual {
 
     @Setter
     @Getter
     private GenomeScheme genomeScheme;
-
-    @Setter
-    @Getter
-    private MutationProfile mutationProfile;
 
     @Setter
     @Getter
@@ -27,7 +22,6 @@ public class Individual {
         this.maternalGenome = new Genome(genomeScheme);
         this.genomeScheme = genomeScheme;
         this.simulationScheme = simulationScheme;
-        this.mutationProfile = simulationScheme.getMutationProfile();
         // TO DO Change logging level
         log.warn("Ind-generated");
     }
@@ -39,20 +33,19 @@ public class Individual {
     private Genome maternalGenome;
 
     // Birth
-    public static Individual makeChild(Individual father, Individual mother) {
+    public Individual makeChild(Individual mother) {
         // TO DO Change logging level
-        log.warn("Sex between " + father.toString() + " and " + mother.toString());
-        Individual child = new Individual();
+        log.warn("Sex between " + this.toString() + " and " + mother.toString());
+        Individual child = new Individual(genomeScheme, simulationScheme);
+        child.genomeScheme = this.getGenomeScheme();
+        child.simulationScheme = this.getSimulationScheme();
         // TO DO Change logging level
         log.debug("Child scheme is prepared");
-        Genome fromFather = father.getHaploGenome();
+        Genome fromFather = this.getHaploGenome();
         Genome fromMother = mother.getHaploGenome();
         // TO DO recombination and splicing
         child.paternalGenome = fromFather;
         child.maternalGenome = fromMother;
-        child.genomeScheme = father.getGenomeScheme();
-        child.simulationScheme = father.getSimulationScheme();
-        child.mutationProfile = father.mutationProfile;
         child.tryToMutate();
         // TO DO Change logging level
         log.warn("Child is born : " + child.toString());
@@ -72,6 +65,7 @@ public class Individual {
     }
 
     private void tryToMutate() {
+        MutationProfile mutationProfile = simulationScheme.getMutationProfile();
         final int SEEDING_CYCLES_COUNT = 10;
         final double reducedBeneficialRate = mutationProfile.getBeneficialMutationsRate()
                 / SEEDING_CYCLES_COUNT;

@@ -17,14 +17,9 @@ public class Population {
     @Getter
     SimulationScheme simulationScheme;
 
-    Population() {
+    Population(SimulationScheme simulationScheme) {
         this.males = new ArrayList<Individual>();
         this.females = new ArrayList<Individual>();
-    }
-
-    Population(Population population) {
-        this.males = population.getMales();
-        this.females = population.getFemales();
     }
 
     Population(List<Individual> males, List<Individual> females) {
@@ -47,17 +42,17 @@ public class Population {
     }
 
     public Population sex(Double reproductionFactor) {
-        Population childPopulation = new Population();
+        Population childPopulation = new Population(simulationScheme);
         long childPopulationSize = Math.round((males.size() + females.size()) * reproductionFactor);
         for (int i = 0; i < childPopulationSize; i++) {
             int fatherIndex = MathUtils.getRandom(males.size());
             int motherIndex = MathUtils.getRandom(females.size());
-            Individual child = Individual.makeChild(males.get(fatherIndex),
-                    females.get(motherIndex));
+            Individual father = this.males.get(fatherIndex);
+            Individual child = father.makeChild(females.get(motherIndex));
             if (MathUtils.getRandom(2) == 1) {
-                males.add(child);
+                childPopulation.males.add(child);
             } else {
-                females.add(child);
+                childPopulation.females.add(child);
             }
         }
         return childPopulation;
