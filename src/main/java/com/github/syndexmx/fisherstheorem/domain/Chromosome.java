@@ -27,7 +27,7 @@ public class Chromosome implements Cloneable {
 
     public double collectFitness() {
         double joinFitness =
-                genes.stream().map(gene -> gene.getFitness())
+                genes.stream().mapToDouble(gene -> gene.getFitness())
                         .reduce(1.0, (accumulator, fitness)
                                 -> MathUtils.collectFitness(accumulator, fitness));
         return joinFitness;
