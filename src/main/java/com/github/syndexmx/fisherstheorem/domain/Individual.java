@@ -41,8 +41,6 @@ public class Individual {
         child.paternalGenome = fromFather;
         child.maternalGenome = fromMother;
         child.tryToMutate();
-        // TO DO Change logging level
-        log.warn("Child is born : " + child.toString());
         return child;
     }
 
