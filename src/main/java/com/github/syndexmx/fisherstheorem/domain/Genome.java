@@ -26,13 +26,9 @@ public class Genome implements Cloneable {
         this.genomeScheme = genomeScheme;
         List<Chromosome> generatedChromosomes = new ArrayList<Chromosome>();
         for (Integer index : genomeScheme.getScheme()) {
-            // TO DO Change logging level
-            log.warn("Gen chromosome with " + genomeScheme.getScheme().get(index).toString() + " genes");
             Integer geneNumber = genomeScheme.getScheme().get(index);
             Chromosome chromosome = new Chromosome(geneNumber);
             generatedChromosomes.add(chromosome);
-            // TO DO
-            log.warn("Chr added " + chromosome.toString());
         }
         chromosomes = generatedChromosomes;
     }
@@ -46,10 +42,6 @@ public class Genome implements Cloneable {
     }
 
     public void mutate(double mutationEffect) {
-        // TO DO Change logging level
-        log.warn("Mutation by " + genomeScheme.toString());
-        log.warn("with map " + genomeScheme.getGeneToChromosomeMap().toString());
-        log.warn("from " + chromosomes.toString());
         int mutatedChromosome = genomeScheme.getGeneToChromosomeMap().get(
             MathUtils.getRandom(genomeScheme.getGenesOverall()));
         chromosomes.set(mutatedChromosome, chromosomes.get(mutatedChromosome).mutate(mutationEffect));
@@ -58,8 +50,6 @@ public class Genome implements Cloneable {
 
     @Override
     public Genome clone() {
-        // TO DO Change logging level
-        log.warn("Genome clonning " + this.toString());
         try {
             Genome clone = (Genome) super.clone();
             List<Chromosome> clonedChromosomes = new ArrayList<Chromosome>();

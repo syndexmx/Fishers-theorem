@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiConsumer;
 
 @NoArgsConstructor
 @Slf4j
@@ -22,8 +21,6 @@ public class Chromosome implements Cloneable {
         List<Gene> generatedGenes = new ArrayList<Gene>();
         for (int i = 0; i < numberGenes; i++) {
             generatedGenes.add(new Gene(1.0));
-            // TO DO logging level
-            log.warn("Gene 1.0");
         }
         this.genes = generatedGenes;
     }
@@ -50,7 +47,7 @@ public class Chromosome implements Cloneable {
         try {
             Chromosome cloneChromo = (Chromosome) super.clone();
             List<Gene> clonedGenes = new ArrayList<>();
-            this.getGenes().stream().forEach(gene -> clonedGenes.add(gene.clone()));
+            this.genes.stream().forEach(gene -> clonedGenes.add(gene.clone()));
             cloneChromo.genes = clonedGenes;
             return cloneChromo;
         } catch (CloneNotSupportedException e) {

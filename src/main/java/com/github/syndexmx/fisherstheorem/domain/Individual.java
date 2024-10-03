@@ -28,19 +28,13 @@ public class Individual {
         this.maternalGenome = new Genome(genomeScheme);
         this.genomeScheme = genomeScheme;
         this.simulationScheme = simulationScheme;
-        // TO DO Change logging level
-        log.warn("Ind-generated");
     }
 
     // Birth
     public Individual makeChild(Individual mother) {
-        // TO DO Change logging level
-        log.warn("Sex between " + this.toString() + " and " + mother.toString());
         Individual child = new Individual(genomeScheme, simulationScheme);
         child.genomeScheme = this.getGenomeScheme();
         child.simulationScheme = this.getSimulationScheme();
-        // TO DO Change logging level
-        log.debug("Child scheme is prepared");
         Genome fromFather = this.getHaploGenome();
         Genome fromMother = mother.getHaploGenome();
         // TO DO recombination and splicing

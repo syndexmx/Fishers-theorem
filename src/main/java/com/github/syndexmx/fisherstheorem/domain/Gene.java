@@ -7,7 +7,7 @@ public class Gene implements Cloneable {
 
     @Getter
     @Setter
-    private double fitness = 1.0;
+    private double fitness = 0.0;
 
     Gene(double fitness) {
         this.fitness = fitness;
