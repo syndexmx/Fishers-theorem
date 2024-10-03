@@ -2,8 +2,12 @@ package com.github.syndexmx.fisherstheorem.domain;
 
 import com.github.syndexmx.fisherstheorem.utils.MathUtils;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
+@NoArgsConstructor
+@Slf4j
 public class Individual {
 
     @Setter
@@ -24,6 +28,8 @@ public class Individual {
         this.genomeScheme = genomeScheme;
         this.simulationScheme = simulationScheme;
         this.mutationProfile = simulationScheme.getMutationProfile();
+        // TO DO Change logging level
+        log.warn("Ind-generated");
     }
 
     @Getter
@@ -33,15 +39,24 @@ public class Individual {
     private Genome maternalGenome;
 
     // Birth
-    public Individual(Individual father, Individual mother, MutationProfile mutationProfile) {
-        Individual child = new Individual(genomeScheme, simulationScheme);
+    public static Individual makeChild(Individual father, Individual mother) {
+        // TO DO Change logging level
+        log.warn("Sex between " + father.toString() + " and " + mother.toString());
+        Individual child = new Individual();
+        // TO DO Change logging level
+        log.debug("Child scheme is prepared");
         Genome fromFather = father.getHaploGenome();
         Genome fromMother = mother.getHaploGenome();
         // TO DO recombination and splicing
         child.paternalGenome = fromFather;
         child.maternalGenome = fromMother;
-        this.mutationProfile = mutationProfile;
-        tryToMutate();
+        child.genomeScheme = father.getGenomeScheme();
+        child.simulationScheme = father.getSimulationScheme();
+        child.mutationProfile = father.mutationProfile;
+        child.tryToMutate();
+        // TO DO Change logging level
+        log.warn("Child is born : " + child.toString());
+        return child;
     }
 
     public double collectFitness() {
@@ -58,20 +73,20 @@ public class Individual {
 
     private void tryToMutate() {
         final int SEEDING_CYCLES_COUNT = 10;
-        final double REDUCED_BENEFICIAL_RATE = mutationProfile.getBeneficialMutationsRate()
+        final double reducedBeneficialRate = mutationProfile.getBeneficialMutationsRate()
                 / SEEDING_CYCLES_COUNT;
-        final double REDUCED_DELETERIOUS_RATE = mutationProfile.getDeleteriousMutationsRate()
+        final double reducedDeleteriousRate = mutationProfile.getDeleteriousMutationsRate()
                 / SEEDING_CYCLES_COUNT;
         final int RANDOMIZATION_AMPLITUDE = 100000000;
-        final long BENEFICIAL_MUTATION_CRITERION = Math.round(RANDOMIZATION_AMPLITUDE
-                * REDUCED_BENEFICIAL_RATE);
-        final long DELETERIOUS_MUTATION_CRITERION = Math.round(RANDOMIZATION_AMPLITUDE
-                * REDUCED_DELETERIOUS_RATE);
+        final long beneficialMutationCriterion = Math.round(RANDOMIZATION_AMPLITUDE
+                * reducedBeneficialRate);
+        final long deleteriousMutationCriterion = Math.round(RANDOMIZATION_AMPLITUDE
+                * reducedDeleteriousRate);
         for (int cycle = 0; cycle < SEEDING_CYCLES_COUNT; cycle++) {
-            if (MathUtils.getRandom(RANDOMIZATION_AMPLITUDE) < BENEFICIAL_MUTATION_CRITERION) {
+            if (MathUtils.getRandom(RANDOMIZATION_AMPLITUDE) < beneficialMutationCriterion) {
                 mutate(mutationProfile.getBeneficialMutationsEffect());
             }
-            if (MathUtils.getRandom(RANDOMIZATION_AMPLITUDE) < DELETERIOUS_MUTATION_CRITERION) {
+            if (MathUtils.getRandom(RANDOMIZATION_AMPLITUDE) < deleteriousMutationCriterion) {
                 mutate(-mutationProfile.getDeleteriousMutationsEffect());
             }
         }

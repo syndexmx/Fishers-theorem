@@ -4,12 +4,14 @@ import com.github.syndexmx.fisherstheorem.configurations.GenomeConfig;
 import com.github.syndexmx.fisherstheorem.utils.MathUtils;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 
+@Slf4j
 public class Genome implements Cloneable {
 
     @Setter
@@ -45,6 +47,8 @@ public class Genome implements Cloneable {
 
     @Override
     public Genome clone() {
+        // TO DO Change logging level
+        log.warn("Genome clonning " + this.toString());
         try {
             Genome clone = (Genome) super.clone();
             List<Chromosome> clonedChromosomes = new ArrayList<Chromosome>();

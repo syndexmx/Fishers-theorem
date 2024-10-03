@@ -52,9 +52,8 @@ public class Population {
         for (int i = 0; i < childPopulationSize; i++) {
             int fatherIndex = MathUtils.getRandom(males.size());
             int motherIndex = MathUtils.getRandom(females.size());
-            Individual child = new Individual(males.get(fatherIndex),
-                    females.get(motherIndex),
-                    simulationScheme.getMutationProfile());
+            Individual child = Individual.makeChild(males.get(fatherIndex),
+                    females.get(motherIndex));
             if (MathUtils.getRandom(2) == 1) {
                 males.add(child);
             } else {

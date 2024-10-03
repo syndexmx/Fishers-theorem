@@ -31,6 +31,7 @@ public class Generation {
         Generation childGeneration = new Generation(childPopulation,
                 generationIndex + 1);
         Double fitness = population.collectFitness();
+        // TO DO Change logging level
         log.warn(generationIndex.toString() + ' ' + fitness.toString());
         return childGeneration;
     }
