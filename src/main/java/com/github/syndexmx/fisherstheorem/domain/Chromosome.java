@@ -20,7 +20,7 @@ public class Chromosome implements Cloneable {
     public Chromosome(Integer numberGenes) {
         List<Gene> generatedGenes = new ArrayList<Gene>();
         for (int i = 0; i < numberGenes; i++) {
-            generatedGenes.add(new Gene(1.0));
+            generatedGenes.add(new Gene(Gene.STARTING_FITNESS));
         }
         this.genes = generatedGenes;
     }

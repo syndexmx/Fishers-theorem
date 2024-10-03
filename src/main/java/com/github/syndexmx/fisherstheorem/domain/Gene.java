@@ -5,9 +5,11 @@ import lombok.Setter;
 
 public class Gene implements Cloneable {
 
+    public static final double STARTING_FITNESS = 0.0;
+
     @Getter
     @Setter
-    private double fitness = 0.0;
+    private double fitness;
 
     Gene(double fitness) {
         this.fitness = fitness;
