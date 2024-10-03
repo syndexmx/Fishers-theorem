@@ -31,9 +31,6 @@ public class Population {
                 females.add(individual);
             }
         }
-        // TO DO logging level
-        Integer populationSize = males.size() + females.size();
-        log.warn("Population size: " + populationSize.toString());
     }
 
     public Population sex(Double reproductionFactor) {

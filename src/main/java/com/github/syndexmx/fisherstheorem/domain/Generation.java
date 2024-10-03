@@ -27,13 +27,10 @@ public class Generation {
 
     public Generation nextGeneration(Double reproductionFactor) {
         // TO DO logging level
-        log.warn("Accessing fitness");
-        Double d = population.collectFitness();
-        log.warn(d.toString());
-
+        log.warn("Next generation in");
         Population childPopulation = population.sex(reproductionFactor);
         // TO DO logging level
-        log.warn("GENERATION");
+        log.warn("NEXT GENERATION");
         Generation childGeneration = new Generation(childPopulation,
                 generationIndex + 1);
         Double fitness = population.collectFitness();
