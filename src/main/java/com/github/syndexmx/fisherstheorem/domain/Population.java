@@ -17,16 +17,6 @@ public class Population {
     @Getter
     SimulationScheme simulationScheme;
 
-    Population(SimulationScheme simulationScheme) {
-        this.males = new ArrayList<Individual>();
-        this.females = new ArrayList<Individual>();
-    }
-
-    Population(List<Individual> males, List<Individual> females) {
-        this.males = males;
-        this.females = females;
-    }
-
     Population(SimulationScheme simulationScheme, GenomeScheme genomeScheme) {
         males = new ArrayList<Individual>();
         females = new ArrayList<Individual>();
@@ -56,6 +46,12 @@ public class Population {
             }
         }
         return childPopulation;
+    }
+
+    Population(SimulationScheme simulationScheme) {
+        this.males = new ArrayList<Individual>();
+        this.females = new ArrayList<Individual>();
+        this.simulationScheme = simulationScheme;
     }
 
     public double collectFitness() {

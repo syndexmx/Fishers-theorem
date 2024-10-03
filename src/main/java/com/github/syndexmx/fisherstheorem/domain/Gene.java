@@ -11,7 +11,6 @@ public class Gene implements Cloneable {
 
     Gene(double fitness) {
         this.fitness = fitness;
-
     }
 
     public void mutate(double mutationEffect) {

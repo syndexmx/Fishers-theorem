@@ -24,11 +24,17 @@ public class Genome implements Cloneable {
 
     public Genome(GenomeScheme genomeScheme) {
         this.genomeScheme = genomeScheme;
-        chromosomes = new ArrayList<Chromosome>();
+        List<Chromosome> generatedChromosomes = new ArrayList<Chromosome>();
         for (Integer index : genomeScheme.getScheme()) {
-            Chromosome chromosome = new Chromosome(genomeScheme.getScheme().get(index));
-            chromosomes.add(chromosome);
+            // TO DO Change logging level
+            log.warn("Gen chromosome with " + genomeScheme.getScheme().get(index).toString() + " genes");
+            Integer geneNumber = genomeScheme.getScheme().get(index);
+            Chromosome chromosome = new Chromosome(geneNumber);
+            generatedChromosomes.add(chromosome);
+            // TO DO
+            log.warn("Chr added " + chromosome.toString());
         }
+        chromosomes = generatedChromosomes;
     }
 
     public double collectFitness() {
@@ -57,9 +63,9 @@ public class Genome implements Cloneable {
         try {
             Genome clone = (Genome) super.clone();
             List<Chromosome> clonedChromosomes = new ArrayList<Chromosome>();
-            clone.chromosomes = clonedChromosomes;
             this.chromosomes.stream().forEach(chromo -> clonedChromosomes.add(chromo.clone()));
             clone.genomeScheme = this.genomeScheme;
+            clone.chromosomes = clonedChromosomes;
             return clone;
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();

@@ -4,12 +4,14 @@ import com.github.syndexmx.fisherstheorem.utils.MathUtils;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
 @NoArgsConstructor
+@Slf4j
 public class Chromosome implements Cloneable {
 
     @Getter
@@ -17,10 +19,13 @@ public class Chromosome implements Cloneable {
     List<Gene> genes;
 
     public Chromosome(Integer numberGenes) {
-        List<Gene> genes = new ArrayList<Gene>();
+        List<Gene> generatedGenes = new ArrayList<Gene>();
         for (int i = 0; i < numberGenes; i++) {
-            genes.add(new Gene(1.0));
+            generatedGenes.add(new Gene(1.0));
+            // TO DO logging level
+            log.warn("Gene 1.0");
         }
+        this.genes = generatedGenes;
     }
 
     public double collectFitness() {
@@ -43,11 +48,11 @@ public class Chromosome implements Cloneable {
     @Override
     public Chromosome clone() {
         try {
-            Chromosome clone = (Chromosome) super.clone();
+            Chromosome cloneChromo = (Chromosome) super.clone();
             List<Gene> clonedGenes = new ArrayList<>();
             this.getGenes().stream().forEach(gene -> clonedGenes.add(gene.clone()));
-            clone.setGenes(clonedGenes);
-            return clone;
+            cloneChromo.genes = clonedGenes;
+            return cloneChromo;
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
         }
