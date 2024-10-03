@@ -17,6 +17,12 @@ public class Individual {
     @Getter
     private SimulationScheme simulationScheme;
 
+    @Getter
+    private Genome paternalGenome;
+
+    @Getter
+    private Genome maternalGenome;
+
     Individual(GenomeScheme genomeScheme, SimulationScheme simulationScheme) {
         this.paternalGenome = new Genome(genomeScheme);
         this.maternalGenome = new Genome(genomeScheme);
@@ -25,12 +31,6 @@ public class Individual {
         // TO DO Change logging level
         log.warn("Ind-generated");
     }
-
-    @Getter
-    private Genome paternalGenome;
-
-    @Getter
-    private Genome maternalGenome;
 
     // Birth
     public Individual makeChild(Individual mother) {
