@@ -1,7 +1,5 @@
 package com.github.syndexmx.fisherstheorem.controllersweb;
 
-import com.github.syndexmx.fisherstheorem.services.SimulationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping
-public class IndexController {
+public class SimulatorController {
 
-    @GetMapping("/index")
+    @GetMapping("/simulation")
     public String indexPage(Model model) {
         model.addAttribute("running", "");
-        return "index";
+        return "simulate";
     }
 }

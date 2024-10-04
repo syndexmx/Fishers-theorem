@@ -1,6 +1,5 @@
 package com.github.syndexmx.fisherstheorem.domain;
 
-import com.github.syndexmx.fisherstheorem.configurations.SimulationConfig;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,8 +17,7 @@ public class Generation {
     public Generation(SimulationScheme simulationScheme, GenomeScheme genomeScheme) {
         population = new Population(simulationScheme, genomeScheme);
         generationIndex = 0;
-        // TO DO logging level
-        log.warn("GENERATION 0. Population seeded");
+        log.info("GENERATION 0. Population seeded");
     }
 
     public Generation(Population childPopulation, int nextGenerationIndex) {
@@ -27,20 +25,15 @@ public class Generation {
         generationIndex = nextGenerationIndex;
     }
 
-    public Generation nextGeneration(Double reproductionFactor) {
+    public Generation nextGeneration(double reproductionFactor) {
         generationIndex++;
-        // TO DO logging level
-        System.out.print("Generation " + generationIndex + ":  ");
-
+        log.info("Generation " + generationIndex + ":  ");
         Population childPopulation = population.sex(reproductionFactor);
         childPopulation.differentiallySurvive();
         childPopulation.differentiallyReproduce();
-
         Generation childGeneration = new Generation(childPopulation, generationIndex);
-        Double fitness = childPopulation.collectFitness();
-
-        // TO DO Change logging level
-        System.out.println(" Fitness: " + (fitness + 1.0));
+        double fitness = childPopulation.collectFitness();
+        log.info("Fitness: " + (fitness + 1.0));
         return childGeneration;
     }
 
