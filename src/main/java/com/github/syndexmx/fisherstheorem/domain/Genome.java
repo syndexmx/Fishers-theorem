@@ -22,6 +22,9 @@ public class Genome implements Cloneable {
     @Setter
     private GenomeScheme genomeScheme;
 
+    @Getter
+    double fitness;
+
     public Genome(GenomeScheme genomeScheme) {
         this.genomeScheme = genomeScheme;
         List<Chromosome> generatedChromosomes = new ArrayList<Chromosome>();
@@ -31,11 +34,12 @@ public class Genome implements Cloneable {
             generatedChromosomes.add(chromosome);
         }
         chromosomes = generatedChromosomes;
+        fitness = this.collectFitness();
     }
 
     public double collectFitness() {
         double joinFitness =
-                chromosomes.stream().mapToDouble(chromosome -> chromosome.collectFitness())
+                chromosomes.stream().mapToDouble(chromosome -> chromosome.getFitness())
                         .reduce(0.0, (accumulator, fitness) -> accumulator + fitness);
         return joinFitness;
     }
@@ -44,6 +48,7 @@ public class Genome implements Cloneable {
         int mutatedChromosome = genomeScheme.getGeneToChromosomeMap().get(
             MathUtils.getRandom(genomeScheme.getGenesOverall()));
         chromosomes.get(mutatedChromosome).mutate(mutationEffect);
+        fitness +=mutationEffect;
     }
 
 
@@ -55,6 +60,7 @@ public class Genome implements Cloneable {
             this.chromosomes.stream().forEach(chromo -> clonedChromosomes.add(chromo.clone()));
             clone.genomeScheme = this.genomeScheme;
             clone.chromosomes = clonedChromosomes;
+            clone.fitness = clone.collectFitness();
             return clone;
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();

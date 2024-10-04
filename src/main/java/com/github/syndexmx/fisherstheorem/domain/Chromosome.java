@@ -17,12 +17,16 @@ public class Chromosome implements Cloneable {
     @Setter
     List<Gene> genes;
 
+    @Getter
+    double fitness;
+
     public Chromosome(Integer numberGenes) {
         List<Gene> generatedGenes = new ArrayList<Gene>();
         for (int i = 0; i < numberGenes; i++) {
             generatedGenes.add(new Gene(Gene.STARTING_FITNESS));
         }
         this.genes = generatedGenes;
+        this.fitness = this.collectFitness();
     }
 
     public double collectFitness() {
@@ -35,6 +39,7 @@ public class Chromosome implements Cloneable {
     public void mutate(double mutationEffect) {
         int mutatedGene = MathUtils.getRandom(genes.size());
         genes.get(mutatedGene).mutate(mutationEffect);
+        fitness +=mutationEffect;
     }
 
     @Override
@@ -44,6 +49,7 @@ public class Chromosome implements Cloneable {
             List<Gene> clonedGenes = new ArrayList<>();
             this.genes.stream().forEach(gene -> clonedGenes.add(gene.clone()));
             cloneChromo.genes = clonedGenes;
+            cloneChromo.fitness = cloneChromo.collectFitness();
             return cloneChromo;
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();

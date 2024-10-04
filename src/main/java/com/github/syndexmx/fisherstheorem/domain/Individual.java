@@ -23,11 +23,15 @@ public class Individual implements Cloneable{
     @Getter
     private Genome maternalGenome;
 
+    @Getter
+    double fitness;
+
     Individual(GenomeScheme genomeScheme, SimulationScheme simulationScheme) {
         this.paternalGenome = new Genome(genomeScheme);
         this.maternalGenome = new Genome(genomeScheme);
         this.genomeScheme = genomeScheme;
         this.simulationScheme = simulationScheme;
+        this.fitness = paternalGenome.getFitness() + maternalGenome.getFitness();
     }
 
     // Birth
@@ -46,7 +50,7 @@ public class Individual implements Cloneable{
     }
 
     public double collectFitness() {
-        return (paternalGenome.collectFitness() + maternalGenome.collectFitness()) ;
+        return this.fitness;
     }
 
     public Genome getHaploGenome() {
@@ -85,6 +89,7 @@ public class Individual implements Cloneable{
         } else {
             maternalGenome.mutate(mutationEffect);
         }
+        fitness +=mutationEffect;
     }
 
     @Override
@@ -95,6 +100,7 @@ public class Individual implements Cloneable{
             clone.maternalGenome = this.maternalGenome.clone();
             clone.genomeScheme = genomeScheme;
             clone.simulationScheme = simulationScheme;
+            clone.fitness = clone.collectFitness();
             return clone;
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();

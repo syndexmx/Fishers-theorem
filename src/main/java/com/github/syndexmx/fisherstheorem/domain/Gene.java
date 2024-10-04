@@ -23,7 +23,7 @@ public class Gene implements Cloneable {
     public Gene clone() {
         try {
             Gene clone = (Gene) super.clone();
-            clone.setFitness(this.fitness);
+            clone.fitness = clone.getFitness();
             return clone;
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
