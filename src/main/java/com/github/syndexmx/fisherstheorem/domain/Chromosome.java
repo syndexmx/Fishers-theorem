@@ -14,7 +14,6 @@ import java.util.List;
 public class Chromosome implements Cloneable {
 
     @Getter
-    @Setter
     List<Gene> genes;
 
     @Getter
@@ -29,7 +28,7 @@ public class Chromosome implements Cloneable {
         this.fitness = this.collectFitness();
     }
 
-    public double collectFitness() {
+    private double collectFitness() {
         double joinFitness =
                 genes.stream().mapToDouble(gene -> gene.getFitness())
                         .reduce(0.0, (accumulator, fitness) -> accumulator + fitness);
@@ -39,7 +38,7 @@ public class Chromosome implements Cloneable {
     public void mutate(double mutationEffect) {
         int mutatedGene = MathUtils.getRandom(genes.size());
         genes.get(mutatedGene).mutate(mutationEffect);
-        fitness +=mutationEffect;
+        fitness = this.collectFitness();
     }
 
     @Override

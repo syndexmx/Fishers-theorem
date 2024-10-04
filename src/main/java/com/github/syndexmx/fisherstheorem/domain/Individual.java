@@ -31,7 +31,7 @@ public class Individual implements Cloneable{
         this.maternalGenome = new Genome(genomeScheme);
         this.genomeScheme = genomeScheme;
         this.simulationScheme = simulationScheme;
-        this.fitness = paternalGenome.getFitness() + maternalGenome.getFitness();
+        this.fitness = this.collectFitness();;
     }
 
     // Birth
@@ -46,11 +46,12 @@ public class Individual implements Cloneable{
         child.paternalGenome = fromFather;
         child.maternalGenome = fromMother;
         child.tryToMutate();
+        child.fitness = child.collectFitness();
         return child;
     }
 
-    public double collectFitness() {
-        return this.fitness;
+    private double collectFitness() {
+        return this.fitness = paternalGenome.getFitness() + maternalGenome.getFitness();
     }
 
     public Genome getHaploGenome() {
@@ -79,8 +80,9 @@ public class Individual implements Cloneable{
             }
             if (MathUtils.getRandom(RANDOMIZATION_AMPLITUDE) < deleteriousMutationCriterion) {
                 mutate(-mutationProfile.getDeleteriousMutationsEffect());
-            }
+            };
         }
+        this.fitness = this.collectFitness();
     }
 
     private void mutate(double mutationEffect) {
@@ -89,7 +91,7 @@ public class Individual implements Cloneable{
         } else {
             maternalGenome.mutate(mutationEffect);
         }
-        fitness +=mutationEffect;
+        this.fitness = this.collectFitness();
     }
 
     @Override

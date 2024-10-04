@@ -8,7 +8,6 @@ public class Gene implements Cloneable {
     public static final double STARTING_FITNESS = 0.0;
 
     @Getter
-    @Setter
     private double fitness;
 
     Gene(double fitness) {
@@ -23,7 +22,7 @@ public class Gene implements Cloneable {
     public Gene clone() {
         try {
             Gene clone = (Gene) super.clone();
-            clone.fitness = clone.getFitness();
+            clone.fitness = this.fitness;
             return clone;
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
