@@ -51,8 +51,6 @@ public class Population {
                 childPopulation.females.add(child);
             }
         }
-        // TO DO logging level
-        System.out.print("Sex: " + childPopulation.males.size() + " " + childPopulation.females.size());
         return childPopulation;
     }
 
@@ -86,8 +84,6 @@ public class Population {
                      | (MathUtils.getRandomBooleanWith(1.0 + i.collectFitness())))
                 .forEach(i -> survivedFemales.add(i.clone()));
         this.females = survivedFemales;
-        // TO DO logging level
-        System.out.print("; Survival: " + this.males.size() + " " + this.females.size());
     }
 
     public void differentiallyReproduce() {
@@ -103,7 +99,5 @@ public class Population {
                         & (MathUtils.getRandomBooleanWith(i.collectFitness()))))
                 .forEach(i -> updatedFemales.add(i.clone()));
         this.females = updatedFemales;
-        // TO DO logging level
-        System.out.println(";  Reproduction: " + this.males.size() + ' ' + this.females.size());
     }
 }
