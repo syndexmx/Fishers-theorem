@@ -35,16 +35,20 @@ public class Individual {
         Individual child = new Individual(genomeScheme, simulationScheme);
         child.genomeScheme = this.getGenomeScheme();
         child.simulationScheme = this.getSimulationScheme();
-        Genome fromFather = this.getHaploGenome().clone();
-        Genome fromMother = withMother.getHaploGenome().clone();
+        Genome fromFather = this.getHaploGenome();
+        Genome fromMother = withMother.getHaploGenome();
         // TO DO recombination and splicing
         child.paternalGenome = fromFather;
         child.maternalGenome = fromMother;
-        child.tryToMutate();
+        //child.tryToMutate();
         return child;
     }
 
     public double collectFitness() {
+        // TO DO logging level
+        log.warn("Fitness of " + this);
+        log.warn("pat.haplo:" + this.paternalGenome
+                + "; mat.haplo:" + this.maternalGenome);
         return MathUtils.collectFitness(paternalGenome.collectFitness(), maternalGenome.collectFitness());
     }
 

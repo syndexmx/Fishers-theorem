@@ -19,7 +19,7 @@ public class Generation {
         population = new Population(simulationScheme, genomeScheme);
         generationIndex = 0;
         // TO DO logging level
-        log.warn("Generation 0. Population seeded");
+        log.warn("GENERATION 0. Population seeded");
     }
 
     public Generation(Population childPopulation, int nextGenerationIndex) {
@@ -33,7 +33,7 @@ public class Generation {
         log.warn("GENERATION " + generationIndex);
         Population childPopulation = population.sex(reproductionFactor);
         // TO DO logging level
-        log.warn("New population produced. Head count: " + childPopulation.getSize());
+        log.warn("New population produced. Size: " + childPopulation.getSize());
         Generation childGeneration = new Generation(childPopulation, generationIndex);
         Double fitness = childPopulation.collectFitness();
         // TO DO Change logging level
