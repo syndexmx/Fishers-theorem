@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping
 public class SimulatorController {
 
-    @GetMapping("/simulate")
+    @GetMapping("/simulation")
     public String indexPage(Model model) {
         model.addAttribute("running", "");
         return "simulate";

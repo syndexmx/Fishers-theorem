@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -21,14 +22,16 @@ public class RunningController {
 
     @PostMapping("/running")
     public String runningPageStart(Model model) {
-        model.addAttribute("running", simulationMonitoringService.getStatus());
-        simulationService.simulate();
+        Long id = simulationService.simulate();
+        model.addAttribute("simulationid", id);
         return "running";
     }
 
-    @GetMapping("/running")
-    public String runningPage(Model model) {
-        model.addAttribute("running", simulationMonitoringService.getStatus());
+    @GetMapping("/running/{simulationid}")
+    public String runningPage(@PathVariable(value = "simulationid") Long simulationId, Model model) {
+        model.addAttribute("simulationid", simulationId);
+        String simulationStatus = "STATUS on " + simulationId;
+        model.addAttribute("simulationstatus", simulationStatus);
         return "running";
     }
 

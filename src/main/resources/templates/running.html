@@ -13,12 +13,8 @@
 
     <h3>Симуляция начата</h3>
     <p>
-        <span th:text = "${running}"/>
-    </p>
-    </p>
-    <p>
     <div class="sbutton">
-        <form action="/running" method="GET" class="centeredcontent">
+        <form th:action="@{/running/} + ${simulationid}" method="GET" class="centeredcontent">
             <button class="sbutton">
                 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <b>Обновить</b>
@@ -26,6 +22,9 @@
             </button>
         </form>
     </div>
+    </p>
+    <p>
+        <span th:text = "${simulationstatus}"/>
     </p>
     <p class="centeredcontent">
         <img src="images/evo.png"/>

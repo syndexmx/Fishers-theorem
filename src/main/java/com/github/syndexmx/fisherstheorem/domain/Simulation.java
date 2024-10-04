@@ -1,12 +1,17 @@
 package com.github.syndexmx.fisherstheorem.domain;
 
+import lombok.Builder;
+import lombok.Getter;
 
 public class Simulation {
 
-    private Generation generation;
+    @Getter
+    transient private Generation generation;
 
+    @Getter
     private SimulationScheme simulationScheme;
 
+    @Getter
     private GenomeScheme genomeScheme;
 
     public Simulation(SimulationScheme simulationScheme, GenomeScheme genomeScheme) {

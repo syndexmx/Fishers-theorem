@@ -7,6 +7,10 @@ import com.github.syndexmx.fisherstheorem.domain.GenomeScheme;
 import com.github.syndexmx.fisherstheorem.domain.MutationProfile;
 import com.github.syndexmx.fisherstheorem.domain.Simulation;
 import com.github.syndexmx.fisherstheorem.domain.SimulationScheme;
+import com.github.syndexmx.fisherstheorem.entities.MutationProfileEntity;
+import com.github.syndexmx.fisherstheorem.entities.SimulationEntity;
+import com.github.syndexmx.fisherstheorem.entities.SimulationSchemeEntity;
+import com.github.syndexmx.fisherstheorem.repositories.SimulationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +32,10 @@ public class SimulationService {
 
     private MutationProfile mutationProfile;
 
-    public void simulate() {
+    @Autowired
+    SimulationRepository simulationRepository;
+
+    public Long simulate() {
         genomeScheme = new GenomeScheme(
                 genomeConfig.getMapChromosomeToGenes(),
                 genomeConfig.getGeneNumberReductionFactor());
@@ -50,6 +57,34 @@ public class SimulationService {
             }
         };
         thread.start();
+        Long id = simulationRepository.save(simulationToSimulationEntity(simulation)).getSimulationId();
+        return id;
+    }
+
+    private SimulationEntity simulationToSimulationEntity(Simulation simulation) {
+        return SimulationEntity.builder()
+                .mutationProfileEntity(mutationProfileToMutationProfileEntity(mutationProfile))
+                .simulationSchemeEntity(simulationSchemeToSimulationSchemeEntity(
+                        simulation.getSimulationScheme()))
+                .build();
+    }
+
+    private MutationProfileEntity mutationProfileToMutationProfileEntity(MutationProfile mutationProfile) {
+        return MutationProfileEntity.builder()
+                .beneficialMutationsEffect(mutationProfile.getBeneficialMutationsEffect())
+                .beneficialMutationsRate(mutationProfile.getBeneficialMutationsEffect())
+                .deleteriousMutationsEffect(mutationProfile.getDeleteriousMutationsEffect())
+                .deleteriousMutationsRate(mutationProfile.getDeleteriousMutationsEffect())
+                .build();
+    }
+
+    private SimulationSchemeEntity simulationSchemeToSimulationSchemeEntity(SimulationScheme simulationScheme) {
+        return SimulationSchemeEntity.builder()
+                .generationsLimit(simulationScheme.getGenerationsLimit())
+                .reproductionFactor(simulationScheme.getReproductionFactor())
+                .populationSize(simulationScheme.getPopulationSize())
+                .populationLimit(simulationScheme.getPopulationLimit())
+                .build();
     }
 
 }
