@@ -70,21 +70,25 @@ public class Population {
     }
 
     public void differentiallySurvive() {
-        males = males.stream().filter(i -> (i.collectFitness() < 0
-                        && (MathUtils.getRandomBooleanWith(1 + i.collectFitness()))))
-                .toList();
-        females = females.stream().filter(i -> (i.collectFitness() < 0
-                        && (MathUtils.getRandomBooleanWith(1 + i.collectFitness()))))
-                .toList();
+        List<Individual> survivedMales = new ArrayList<>();
+        males.stream().filter(i -> (i.collectFitness() < 0
+                        & (MathUtils.getRandomBooleanWith(1 + i.collectFitness()))))
+                .forEach(i -> survivedMales.add(i.clone()));
+        males = survivedMales;
+        List<Individual> survivedFemales = new ArrayList<>();
+        females.stream().filter(i -> (i.collectFitness() < 0
+                        & (MathUtils.getRandomBooleanWith(1 + i.collectFitness()))))
+                .forEach(i -> survivedFemales.add(i.clone()));
+        females = survivedFemales;
     }
 
     public void differentiallyReproduce() {
         List<Individual> additionalMales = males.stream().filter(i -> (i.collectFitness() > 0
-                        && (MathUtils.getRandomBooleanWith(i.collectFitness()))))
+                        & (MathUtils.getRandomBooleanWith(i.collectFitness()))))
                 .toList();
         additionalMales.stream().forEach(i -> males.add(i.clone()));
         List<Individual> additionalFemales = females.stream().filter(i -> (i.collectFitness() > 0
-                        && (MathUtils.getRandomBooleanWith(i.collectFitness()))))
+                        & (MathUtils.getRandomBooleanWith(i.collectFitness()))))
                 .toList();
         additionalFemales.stream().forEach(i -> females.add(i.clone()));
     }

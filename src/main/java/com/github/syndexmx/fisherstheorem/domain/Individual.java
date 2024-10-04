@@ -90,8 +90,8 @@ public class Individual implements Cloneable{
     public Individual clone() {
         try {
             Individual clone = (Individual) super.clone();
-            clone.paternalGenome = this.paternalGenome;
-            clone.maternalGenome = this.maternalGenome;
+            clone.paternalGenome = this.paternalGenome.clone();
+            clone.maternalGenome = this.maternalGenome.clone();
             clone.genomeScheme = genomeScheme;
             clone.simulationScheme = simulationScheme;
             return clone;
