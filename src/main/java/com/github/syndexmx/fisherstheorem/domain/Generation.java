@@ -18,24 +18,26 @@ public class Generation {
     public Generation(SimulationScheme simulationScheme, GenomeScheme genomeScheme) {
         population = new Population(simulationScheme, genomeScheme);
         generationIndex = 0;
+        // TO DO logging level
+        log.warn("Generation 0. Population seeded");
     }
 
-    public Generation(Population population, int nextGenerationIndex) {
-        this.population = population;
+    public Generation(Population childPopulation, int nextGenerationIndex) {
+        this.population = childPopulation;
         generationIndex = nextGenerationIndex;
     }
 
     public Generation nextGeneration(Double reproductionFactor) {
+        generationIndex++;
         // TO DO logging level
-        log.warn("Next generation in");
+        log.warn("GENERATION " + generationIndex);
         Population childPopulation = population.sex(reproductionFactor);
         // TO DO logging level
-        log.warn("NEXT GENERATION");
-        Generation childGeneration = new Generation(childPopulation,
-                generationIndex + 1);
-        Double fitness = population.collectFitness();
+        log.warn("New population produced. Head count: " + childPopulation.getSize());
+        Generation childGeneration = new Generation(childPopulation, generationIndex);
+        Double fitness = childPopulation.collectFitness();
         // TO DO Change logging level
-        log.warn(generationIndex.toString() + ' ' + fitness.toString());
+        log.warn("Fitness: " + fitness);
         return childGeneration;
     }
 

@@ -40,7 +40,8 @@ public class Population {
             int fatherIndex = MathUtils.getRandom(males.size());
             int motherIndex = MathUtils.getRandom(females.size());
             Individual father = this.males.get(fatherIndex);
-            Individual child = father.makeChild(females.get(motherIndex));
+            Individual mother = this.females.get(motherIndex);
+            Individual child = father.makeChild(mother);
             if (MathUtils.getRandom(2) == 1) {
                 childPopulation.males.add(child);
             } else {
@@ -68,4 +69,7 @@ public class Population {
         return joinFitness;
     }
 
+    public Integer getSize() {
+        return males.size()+ females.size();
+    }
 }

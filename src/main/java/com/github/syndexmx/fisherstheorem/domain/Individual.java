@@ -31,12 +31,12 @@ public class Individual {
     }
 
     // Birth
-    public Individual makeChild(Individual mother) {
+    public Individual makeChild(Individual withMother) {
         Individual child = new Individual(genomeScheme, simulationScheme);
         child.genomeScheme = this.getGenomeScheme();
         child.simulationScheme = this.getSimulationScheme();
-        Genome fromFather = this.getHaploGenome();
-        Genome fromMother = mother.getHaploGenome();
+        Genome fromFather = this.getHaploGenome().clone();
+        Genome fromMother = withMother.getHaploGenome().clone();
         // TO DO recombination and splicing
         child.paternalGenome = fromFather;
         child.maternalGenome = fromMother;
