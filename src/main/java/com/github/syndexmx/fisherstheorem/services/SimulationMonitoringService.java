@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class SimulationMonitoringService {
 
-    public String getStatus() {
+    public String getStatus(Long simulationId) {
 
-        return "Current Status";
+        return "Current Status on " + simulationId + ": generation " + " ?? " ;
     }
 }

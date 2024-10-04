@@ -30,7 +30,7 @@ public class RunningController {
     @GetMapping("/running/{simulationid}")
     public String runningPage(@PathVariable(value = "simulationid") Long simulationId, Model model) {
         model.addAttribute("simulationid", simulationId);
-        String simulationStatus = "STATUS on " + simulationId;
+        String simulationStatus = "STATUS on " + simulationMonitoringService.getStatus(simulationId);
         model.addAttribute("simulationstatus", simulationStatus);
         return "running";
     }

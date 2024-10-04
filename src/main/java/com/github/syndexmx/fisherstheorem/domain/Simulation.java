@@ -55,7 +55,7 @@ public class Simulation {
             log.info("Generation " + generation.getGenerationIndex()
                     + " fitness = "
                     + (1.0 + generation.getFitnessDeviation())
-                    + "  Long-tern fitness change: 1st half df/dt= " + firstHalfRate
+                    + "  Long-term fitness change: 1st half df/dt= " + firstHalfRate
                     + "; 2nd half df/dt= " + secondHalfRate);
         }
     }
