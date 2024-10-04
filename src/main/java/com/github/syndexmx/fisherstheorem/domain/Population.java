@@ -74,12 +74,12 @@ public class Population {
         males.stream().filter(i -> (i.collectFitness() < 0
                         & (MathUtils.getRandomBooleanWith(1 + i.collectFitness()))))
                 .forEach(i -> survivedMales.add(i.clone()));
-        males = survivedMales;
+        males.addAll(survivedMales);
         List<Individual> survivedFemales = new ArrayList<>();
         females.stream().filter(i -> (i.collectFitness() < 0
                         & (MathUtils.getRandomBooleanWith(1 + i.collectFitness()))))
                 .forEach(i -> survivedFemales.add(i.clone()));
-        females = survivedFemales;
+        females.addAll(survivedFemales);
     }
 
     public void differentiallyReproduce() {
