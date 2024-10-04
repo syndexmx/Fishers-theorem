@@ -60,4 +60,17 @@ public class Genome implements Cloneable {
             throw new AssertionError();
         }
     }
+
+    public void recombine(Genome anotherGenome) {
+        for (int i = 0; i < this.chromosomes.size(); i++) {
+            if (MathUtils.getRandom(2) == 0) {
+                //Swapping whole chromosomes
+                Chromosome swapChromosome  = this.chromosomes.get(i);
+                this.chromosomes.set(i, anotherGenome.getChromosomes().get(i));
+                anotherGenome.getChromosomes().set(i, swapChromosome);
+            }
+            // Splicing recombination
+            this.chromosomes.get(i).splice(anotherGenome.getChromosomes().get(i));
+        }
+    }
 }

@@ -38,6 +38,7 @@ public class Individual implements Cloneable{
         Genome fromFather = this.getHaploGenome();
         Genome fromMother = withMother.getHaploGenome();
         // TO DO recombination and splicing
+        fromFather.recombine(maternalGenome);
         child.paternalGenome = fromFather;
         child.maternalGenome = fromMother;
         child.tryToMutate();

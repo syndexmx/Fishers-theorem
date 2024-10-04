@@ -49,4 +49,17 @@ public class Chromosome implements Cloneable {
             throw new AssertionError();
         }
     }
+
+    public void splice(Chromosome anotherChromosome) {
+        int chromosomeLength = this.genes.size();
+        int splicingPoint = MathUtils.getRandom(chromosomeLength);
+        int currentPoint = splicingPoint;
+        while (currentPoint < chromosomeLength) {
+            // Swapping
+            Gene swapGene = this.genes.get(currentPoint);
+            this.genes.set(currentPoint, anotherChromosome.genes.get(currentPoint));
+            anotherChromosome.genes.set(currentPoint, swapGene);
+            currentPoint++;
+        }
+    }
 }
