@@ -14,13 +14,14 @@ import java.util.TreeSet;
 @Slf4j
 public class Genome implements Cloneable {
 
-    @Setter
     @Getter
     private List<Chromosome> chromosomes;
 
     @Getter
-    @Setter
     private GenomeScheme genomeScheme;
+
+    @Getter
+    double fitness;
 
     public Genome(GenomeScheme genomeScheme) {
         this.genomeScheme = genomeScheme;
@@ -31,11 +32,12 @@ public class Genome implements Cloneable {
             generatedChromosomes.add(chromosome);
         }
         chromosomes = generatedChromosomes;
+        fitness = this.collectFitness();
     }
 
-    public double collectFitness() {
+    private double collectFitness() {
         double joinFitness =
-                chromosomes.stream().mapToDouble(chromosome -> chromosome.collectFitness())
+                chromosomes.stream().mapToDouble(chromosome -> chromosome.getFitness())
                         .reduce(0.0, (accumulator, fitness) -> accumulator + fitness);
         return joinFitness;
     }
@@ -44,6 +46,7 @@ public class Genome implements Cloneable {
         int mutatedChromosome = genomeScheme.getGeneToChromosomeMap().get(
             MathUtils.getRandom(genomeScheme.getGenesOverall()));
         chromosomes.get(mutatedChromosome).mutate(mutationEffect);
+        this.fitness =this.collectFitness();
     }
 
 
@@ -55,6 +58,7 @@ public class Genome implements Cloneable {
             this.chromosomes.stream().forEach(chromo -> clonedChromosomes.add(chromo.clone()));
             clone.genomeScheme = this.genomeScheme;
             clone.chromosomes = clonedChromosomes;
+            clone.fitness = clone.collectFitness();
             return clone;
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();

@@ -14,8 +14,10 @@ import java.util.List;
 public class Chromosome implements Cloneable {
 
     @Getter
-    @Setter
     List<Gene> genes;
+
+    @Getter
+    double fitness;
 
     public Chromosome(Integer numberGenes) {
         List<Gene> generatedGenes = new ArrayList<Gene>();
@@ -23,9 +25,10 @@ public class Chromosome implements Cloneable {
             generatedGenes.add(new Gene(Gene.STARTING_FITNESS));
         }
         this.genes = generatedGenes;
+        this.fitness = this.collectFitness();
     }
 
-    public double collectFitness() {
+    private double collectFitness() {
         double joinFitness =
                 genes.stream().mapToDouble(gene -> gene.getFitness())
                         .reduce(0.0, (accumulator, fitness) -> accumulator + fitness);
@@ -35,6 +38,7 @@ public class Chromosome implements Cloneable {
     public void mutate(double mutationEffect) {
         int mutatedGene = MathUtils.getRandom(genes.size());
         genes.get(mutatedGene).mutate(mutationEffect);
+        fitness = this.collectFitness();
     }
 
     @Override
@@ -44,6 +48,7 @@ public class Chromosome implements Cloneable {
             List<Gene> clonedGenes = new ArrayList<>();
             this.genes.stream().forEach(gene -> clonedGenes.add(gene.clone()));
             cloneChromo.genes = clonedGenes;
+            cloneChromo.fitness = cloneChromo.collectFitness();
             return cloneChromo;
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();

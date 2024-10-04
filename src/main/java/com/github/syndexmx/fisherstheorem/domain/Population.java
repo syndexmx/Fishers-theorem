@@ -61,9 +61,9 @@ public class Population {
     }
 
     public double collectFitness() {
-        double jointFitness = males.stream().mapToDouble(individ -> individ.collectFitness())
+        double jointFitness = males.stream().mapToDouble(individ -> individ.getFitness())
                         .reduce(0.0, (accumulator, fitness) -> accumulator + fitness);
-        jointFitness += females.stream().mapToDouble(individ -> individ.collectFitness())
+        jointFitness += females.stream().mapToDouble(individ -> individ.getFitness())
                         .reduce(0.0, (accumulator, fitness) -> accumulator + fitness);
         return jointFitness / this.getSize();
     }
@@ -75,13 +75,13 @@ public class Population {
     public void differentiallySurvive() {
         Population childPopulation = new Population(simulationScheme);
         List<Individual> survivedMales = new ArrayList<>();
-        this.males.stream().filter(i -> i.collectFitness() > 0
-                        | (MathUtils.getRandomBooleanWith(1.0 + i.collectFitness())))
+        this.males.stream().filter(i -> i.getFitness() > 0
+                        | (MathUtils.getRandomBooleanWith(1.0 + i.getFitness())))
                 .forEach(i -> survivedMales.add(i.clone()));
         this.males = survivedMales;
         List<Individual> survivedFemales = new ArrayList<>();
-        this.females.stream().filter(i -> i.collectFitness() > 0
-                     | (MathUtils.getRandomBooleanWith(1.0 + i.collectFitness())))
+        this.females.stream().filter(i -> i.getFitness() > 0
+                     | (MathUtils.getRandomBooleanWith(1.0 + i.getFitness())))
                 .forEach(i -> survivedFemales.add(i.clone()));
         this.females = survivedFemales;
     }
@@ -89,14 +89,14 @@ public class Population {
     public void differentiallyReproduce() {
         List<Individual> updatedMales = new ArrayList<Individual>();
         this.males.stream().forEach(i -> updatedMales.add(i.clone()));
-        this.males.stream().filter(i -> (i.collectFitness() > 0
-                        & (MathUtils.getRandomBooleanWith(i.collectFitness()))))
+        this.males.stream().filter(i -> (i.getFitness() > 0
+                        & (MathUtils.getRandomBooleanWith(i.getFitness()))))
                 .forEach(i -> updatedMales.add(i.clone()));
         this.males = updatedMales;
         List<Individual> updatedFemales = new ArrayList<Individual>();
         this.females.stream().forEach(i -> updatedFemales.add(i.clone()));
-        this.females.stream().filter(i -> (i.collectFitness() > 0
-                        & (MathUtils.getRandomBooleanWith(i.collectFitness()))))
+        this.females.stream().filter(i -> (i.getFitness() > 0
+                        & (MathUtils.getRandomBooleanWith(i.getFitness()))))
                 .forEach(i -> updatedFemales.add(i.clone()));
         this.females = updatedFemales;
     }

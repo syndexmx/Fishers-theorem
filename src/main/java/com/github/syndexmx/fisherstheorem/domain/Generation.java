@@ -30,8 +30,7 @@ public class Generation {
     public Generation nextGeneration(Double reproductionFactor) {
         generationIndex++;
         // TO DO logging level
-        if (generationIndex % 10 == 0)
-            System.out.println("Generation " + generationIndex);
+        System.out.print("Generation " + generationIndex + ":  ");
 
         Population childPopulation = population.sex(reproductionFactor);
         childPopulation.differentiallySurvive();
@@ -41,8 +40,7 @@ public class Generation {
         Double fitness = childPopulation.collectFitness();
 
         // TO DO Change logging level
-        if (generationIndex % 10 == 0)
-            System.out.println(" Fitness: " + fitness);
+        System.out.println(" Fitness: " + (fitness + 1.0));
         return childGeneration;
     }
 

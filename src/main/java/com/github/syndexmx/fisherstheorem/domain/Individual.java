@@ -23,11 +23,15 @@ public class Individual implements Cloneable{
     @Getter
     private Genome maternalGenome;
 
+    @Getter
+    double fitness;
+
     Individual(GenomeScheme genomeScheme, SimulationScheme simulationScheme) {
         this.paternalGenome = new Genome(genomeScheme);
         this.maternalGenome = new Genome(genomeScheme);
         this.genomeScheme = genomeScheme;
         this.simulationScheme = simulationScheme;
+        this.fitness = this.collectFitness();;
     }
 
     // Birth
@@ -42,11 +46,12 @@ public class Individual implements Cloneable{
         child.paternalGenome = fromFather;
         child.maternalGenome = fromMother;
         child.tryToMutate();
+        child.fitness = child.collectFitness();
         return child;
     }
 
-    public double collectFitness() {
-        return (paternalGenome.collectFitness() + maternalGenome.collectFitness()) ;
+    private double collectFitness() {
+        return this.fitness = paternalGenome.getFitness() + maternalGenome.getFitness();
     }
 
     public Genome getHaploGenome() {
@@ -75,8 +80,9 @@ public class Individual implements Cloneable{
             }
             if (MathUtils.getRandom(RANDOMIZATION_AMPLITUDE) < deleteriousMutationCriterion) {
                 mutate(-mutationProfile.getDeleteriousMutationsEffect());
-            }
+            };
         }
+        this.fitness = this.collectFitness();
     }
 
     private void mutate(double mutationEffect) {
@@ -85,6 +91,7 @@ public class Individual implements Cloneable{
         } else {
             maternalGenome.mutate(mutationEffect);
         }
+        this.fitness = this.collectFitness();
     }
 
     @Override
@@ -95,6 +102,7 @@ public class Individual implements Cloneable{
             clone.maternalGenome = this.maternalGenome.clone();
             clone.genomeScheme = genomeScheme;
             clone.simulationScheme = simulationScheme;
+            clone.fitness = clone.collectFitness();
             return clone;
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
