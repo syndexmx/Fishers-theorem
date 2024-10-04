@@ -31,7 +31,7 @@ public class Generation {
         generationIndex++;
         // TO DO logging level
         if (generationIndex % 10 == 0)
-            System.out.print("Generation " + generationIndex);
+            System.out.println("Generation " + generationIndex);
 
         Population childPopulation = population.sex(reproductionFactor);
         childPopulation.differentiallySurvive();

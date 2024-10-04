@@ -2,6 +2,7 @@ package com.github.syndexmx.fisherstheorem.domain;
 
 import com.github.syndexmx.fisherstheorem.utils.MathUtils;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -11,9 +12,11 @@ import java.util.List;
 public class Population {
 
     @Getter
+    @Setter
     List<Individual> males;
 
     @Getter
+    @Setter
     List<Individual> females;
 
     @Getter
@@ -48,6 +51,8 @@ public class Population {
                 childPopulation.females.add(child);
             }
         }
+        // TO DO logging level
+        System.out.print("Sex: " + childPopulation.males.size() + " " + childPopulation.females.size());
         return childPopulation;
     }
 
@@ -70,26 +75,35 @@ public class Population {
     }
 
     public void differentiallySurvive() {
+        Population childPopulation = new Population(simulationScheme);
         List<Individual> survivedMales = new ArrayList<>();
-        males.stream().filter(i -> (i.collectFitness() < 0
-                        & (MathUtils.getRandomBooleanWith(1 + i.collectFitness()))))
+        this.males.stream().filter(i -> i.collectFitness() > 0
+                        | (MathUtils.getRandomBooleanWith(1.0 + i.collectFitness())))
                 .forEach(i -> survivedMales.add(i.clone()));
-        males.addAll(survivedMales);
+        this.males = survivedMales;
         List<Individual> survivedFemales = new ArrayList<>();
-        females.stream().filter(i -> (i.collectFitness() < 0
-                        & (MathUtils.getRandomBooleanWith(1 + i.collectFitness()))))
+        this.females.stream().filter(i -> i.collectFitness() > 0
+                     | (MathUtils.getRandomBooleanWith(1.0 + i.collectFitness())))
                 .forEach(i -> survivedFemales.add(i.clone()));
-        females.addAll(survivedFemales);
+        this.females = survivedFemales;
+        // TO DO logging level
+        System.out.print("; Survival: " + this.males.size() + " " + this.females.size());
     }
 
     public void differentiallyReproduce() {
-        List<Individual> additionalMales = males.stream().filter(i -> (i.collectFitness() > 0
+        List<Individual> updatedMales = new ArrayList<Individual>();
+        this.males.stream().forEach(i -> updatedMales.add(i.clone()));
+        this.males.stream().filter(i -> (i.collectFitness() > 0
                         & (MathUtils.getRandomBooleanWith(i.collectFitness()))))
-                .toList();
-        additionalMales.stream().forEach(i -> males.add(i.clone()));
-        List<Individual> additionalFemales = females.stream().filter(i -> (i.collectFitness() > 0
+                .forEach(i -> updatedMales.add(i.clone()));
+        this.males = updatedMales;
+        List<Individual> updatedFemales = new ArrayList<Individual>();
+        this.females.stream().forEach(i -> updatedFemales.add(i.clone()));
+        this.females.stream().filter(i -> (i.collectFitness() > 0
                         & (MathUtils.getRandomBooleanWith(i.collectFitness()))))
-                .toList();
-        additionalFemales.stream().forEach(i -> females.add(i.clone()));
+                .forEach(i -> updatedFemales.add(i.clone()));
+        this.females = updatedFemales;
+        // TO DO logging level
+        System.out.println(";  Reproduction: " + this.males.size() + ' ' + this.females.size());
     }
 }
