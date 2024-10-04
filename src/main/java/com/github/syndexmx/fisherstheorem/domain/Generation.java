@@ -21,23 +21,20 @@ public class Generation {
         population = new Population(simulationScheme, genomeScheme);
         generationIndex = 0;
         fitnessDeviation = population.getFitnessDeviation();
-        log.info("GENERATION 0. Population seeded");
     }
 
     public Generation(Population childPopulation, int nextGenerationIndex) {
         this.population = childPopulation;
         generationIndex = nextGenerationIndex;
+        fitnessDeviation = population.getFitnessDeviation();
     }
 
     public Generation nextGeneration(double reproductionFactor) {
         generationIndex++;
-        log.info("Generation " + generationIndex + ":  ");
         Population childPopulation = population.sex(reproductionFactor);
         childPopulation.differentiallySurvive();
         childPopulation.differentiallyReproduce();
         Generation childGeneration = new Generation(childPopulation, generationIndex);
-        double fitness = 1.0 + childPopulation.getFitnessDeviation();
-        log.info("Fitness deviation: " + fitness);
         return childGeneration;
     }
 
