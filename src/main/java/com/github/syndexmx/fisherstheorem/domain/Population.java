@@ -58,11 +58,9 @@ public class Population {
     }
 
     public double collectFitness() {
-        double jointFitness =
-                males.stream().mapToDouble(individ -> individ.collectFitness())
+        double jointFitness = males.stream().mapToDouble(individ -> individ.collectFitness())
                         .reduce(0.0, (accumulator, fitness) -> accumulator + fitness);
-        jointFitness +=
-                females.stream().mapToDouble(individ -> individ.collectFitness())
+        jointFitness += females.stream().mapToDouble(individ -> individ.collectFitness())
                         .reduce(0.0, (accumulator, fitness) -> accumulator + fitness);
         return jointFitness / this.getSize();
     }
@@ -71,4 +69,23 @@ public class Population {
         return males.size()+ females.size();
     }
 
+    public void differentiallySurvive() {
+        males = males.stream().filter(i -> (i.collectFitness() < 0
+                        && (MathUtils.getRandomBooleanWith(1 + i.collectFitness()))))
+                .toList();
+        females = females.stream().filter(i -> (i.collectFitness() < 0
+                        && (MathUtils.getRandomBooleanWith(1 + i.collectFitness()))))
+                .toList();
+    }
+
+    public void differentiallyReproduce() {
+        List<Individual> additionalMales = males.stream().filter(i -> (i.collectFitness() > 0
+                        && (MathUtils.getRandomBooleanWith(i.collectFitness()))))
+                .toList();
+        additionalMales.stream().forEach(i -> males.add(i.clone()));
+        List<Individual> additionalFemales = females.stream().filter(i -> (i.collectFitness() > 0
+                        && (MathUtils.getRandomBooleanWith(i.collectFitness()))))
+                .toList();
+        additionalFemales.stream().forEach(i -> females.add(i.clone()));
+    }
 }

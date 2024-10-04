@@ -7,7 +7,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class Individual {
+public class Individual implements Cloneable{
 
     @Setter
     @Getter
@@ -83,6 +83,20 @@ public class Individual {
             paternalGenome.mutate(mutationEffect);
         } else {
             maternalGenome.mutate(mutationEffect);
+        }
+    }
+
+    @Override
+    public Individual clone() {
+        try {
+            Individual clone = (Individual) super.clone();
+            clone.paternalGenome = this.paternalGenome;
+            clone.maternalGenome = this.maternalGenome;
+            clone.genomeScheme = genomeScheme;
+            clone.simulationScheme = simulationScheme;
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
         }
     }
 }
