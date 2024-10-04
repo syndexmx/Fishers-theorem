@@ -3,7 +3,6 @@ package com.github.syndexmx.fisherstheorem.domain;
 import com.github.syndexmx.fisherstheorem.utils.MathUtils;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
