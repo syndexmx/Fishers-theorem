@@ -35,7 +35,7 @@ public class Population {
 
     public Population sex(Double reproductionFactor) {
         Population childPopulation = new Population(simulationScheme);
-        long childPopulationSize = Math.round((males.size() + females.size()) * reproductionFactor);
+        long childPopulationSize = simulationScheme.getPopulationLimit();
         for (int i = 0; i < childPopulationSize; i++) {
             int fatherIndex = MathUtils.getRandom(males.size());
             int motherIndex = MathUtils.getRandom(females.size());
@@ -70,4 +70,5 @@ public class Population {
     public Integer getSize() {
         return males.size()+ females.size();
     }
+
 }

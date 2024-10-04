@@ -31,9 +31,12 @@ public class Generation {
         generationIndex++;
         // TO DO logging level
         log.warn("GENERATION " + generationIndex);
+
         Population childPopulation = population.sex(reproductionFactor);
+
         // TO DO logging level
         log.warn("New population produced. Size: " + childPopulation.getSize());
+
         Generation childGeneration = new Generation(childPopulation, generationIndex);
         Double fitness = childPopulation.collectFitness();
         // TO DO Change logging level
