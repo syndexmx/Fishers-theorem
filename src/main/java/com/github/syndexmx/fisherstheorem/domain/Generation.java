@@ -40,7 +40,7 @@ public class Generation {
         Double fitness = childPopulation.collectFitness();
 
         // TO DO Change logging level
-        System.out.println(" Fitness: " + fitness);
+        System.out.println(" Fitness: " + (fitness + 1.0));
         return childGeneration;
     }
 
