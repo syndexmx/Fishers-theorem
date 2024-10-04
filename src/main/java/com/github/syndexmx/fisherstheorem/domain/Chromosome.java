@@ -33,13 +33,9 @@ public class Chromosome implements Cloneable {
         return joinFitness;
     }
 
-    public Chromosome mutate(double mutationEffect) {
-        Chromosome newChromosome = new Chromosome();
-        List<Gene> newGenes = genes.stream().toList();
-        int mutatedGeneIndex = MathUtils.getRandom(genes.size());
-        newGenes.get(mutatedGeneIndex).mutate(mutationEffect);
-        newChromosome.setGenes(newGenes);
-        return null;
+    public void mutate(double mutationEffect) {
+        int mutatedGene = MathUtils.getRandom(genes.size());
+        genes.get(mutatedGene).mutate(mutationEffect);
     }
 
     @Override

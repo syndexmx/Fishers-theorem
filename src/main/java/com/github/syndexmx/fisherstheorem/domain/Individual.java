@@ -40,7 +40,7 @@ public class Individual {
         // TO DO recombination and splicing
         child.paternalGenome = fromFather;
         child.maternalGenome = fromMother;
-        //child.tryToMutate();
+        child.tryToMutate();
         return child;
     }
 

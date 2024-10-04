@@ -44,7 +44,7 @@ public class Genome implements Cloneable {
     public void mutate(double mutationEffect) {
         int mutatedChromosome = genomeScheme.getGeneToChromosomeMap().get(
             MathUtils.getRandom(genomeScheme.getGenesOverall()));
-        chromosomes.set(mutatedChromosome, chromosomes.get(mutatedChromosome).mutate(mutationEffect));
+        chromosomes.get(mutatedChromosome).mutate(mutationEffect);
     }
 
 
