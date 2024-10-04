@@ -45,7 +45,7 @@ public class Individual {
     }
 
     public double collectFitness() {
-        return MathUtils.collectFitness(paternalGenome.collectFitness(), maternalGenome.collectFitness());
+        return (paternalGenome.collectFitness() + maternalGenome.collectFitness()) ;
     }
 
     public Genome getHaploGenome() {

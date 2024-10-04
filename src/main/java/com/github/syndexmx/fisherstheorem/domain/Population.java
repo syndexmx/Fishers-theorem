@@ -58,15 +58,13 @@ public class Population {
     }
 
     public double collectFitness() {
-        double joinFitness =
+        double jointFitness =
                 males.stream().mapToDouble(individ -> individ.collectFitness())
-                        .reduce(1.0, (accumulator, fitness)
-                                -> MathUtils.collectFitness(accumulator, fitness));
-        joinFitness =
-                females.stream().map(individ -> individ.collectFitness())
-                        .reduce(joinFitness, (accumulator, fitness)
-                                -> MathUtils.collectFitness(accumulator, fitness));
-        return joinFitness;
+                        .reduce(0.0, (accumulator, fitness) -> accumulator + fitness);
+        jointFitness +=
+                females.stream().mapToDouble(individ -> individ.collectFitness())
+                        .reduce(0.0, (accumulator, fitness) -> accumulator + fitness);
+        return jointFitness / this.getSize();
     }
 
     public Integer getSize() {

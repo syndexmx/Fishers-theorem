@@ -10,7 +10,5 @@ public class MathUtils {
         return random.nextInt(lowerThan);
     }
 
-    static public double collectFitness(double accumulator, double component) {
-        return accumulator + component;
     }
 }

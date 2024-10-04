@@ -36,8 +36,7 @@ public class Genome implements Cloneable {
     public double collectFitness() {
         double joinFitness =
                 chromosomes.stream().mapToDouble(chromosome -> chromosome.collectFitness())
-                        .reduce(1.0, (accumulator, fitness)
-                                -> MathUtils.collectFitness(accumulator, fitness));
+                        .reduce(0.0, (accumulator, fitness) -> accumulator + fitness);
         return joinFitness;
     }
 
