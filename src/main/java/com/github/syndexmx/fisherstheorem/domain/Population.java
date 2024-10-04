@@ -48,8 +48,6 @@ public class Population {
                 childPopulation.females.add(child);
             }
         }
-        //TO DO logging level
-        log.warn("Reproduction: " + childPopulation.getSize().toString());
         return childPopulation;
     }
 

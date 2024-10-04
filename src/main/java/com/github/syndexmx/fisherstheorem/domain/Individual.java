@@ -45,10 +45,6 @@ public class Individual {
     }
 
     public double collectFitness() {
-        // TO DO logging level
-        log.warn("Fitness of " + this);
-        log.warn("pat.haplo:" + this.paternalGenome
-                + "; mat.haplo:" + this.maternalGenome);
         return MathUtils.collectFitness(paternalGenome.collectFitness(), maternalGenome.collectFitness());
     }
 
