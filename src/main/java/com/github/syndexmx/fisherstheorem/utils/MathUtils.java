@@ -9,6 +9,4 @@ public class MathUtils {
     static public int getRandom(int lowerThan) {
         return random.nextInt(lowerThan);
     }
-
-    }
 }
