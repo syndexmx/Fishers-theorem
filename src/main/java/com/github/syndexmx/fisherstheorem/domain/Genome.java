@@ -1,15 +1,11 @@
 package com.github.syndexmx.fisherstheorem.domain;
 
-import com.github.syndexmx.fisherstheorem.configurations.GenomeConfig;
 import com.github.syndexmx.fisherstheorem.utils.MathUtils;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeSet;
 
 @Slf4j
 public class Genome implements Cloneable {
@@ -21,7 +17,7 @@ public class Genome implements Cloneable {
     private GenomeScheme genomeScheme;
 
     @Getter
-    double fitness;
+    double fitnessDeviation;
 
     public Genome(GenomeScheme genomeScheme) {
         this.genomeScheme = genomeScheme;
@@ -32,13 +28,13 @@ public class Genome implements Cloneable {
             generatedChromosomes.add(chromosome);
         }
         chromosomes = generatedChromosomes;
-        fitness = this.collectFitness();
+        fitnessDeviation = this.collectFitness();
     }
 
     private double collectFitness() {
         double joinFitness =
-                chromosomes.stream().mapToDouble(chromosome -> chromosome.getFitness())
-                        .reduce(0.0, (accumulator, fitness) -> accumulator + fitness);
+                chromosomes.stream().mapToDouble(chromosome -> chromosome.getFitnessDeviation())
+                        .reduce(0.0, (accumulator, fitnessDeviation) -> accumulator + fitnessDeviation);
         return joinFitness;
     }
 
@@ -46,7 +42,7 @@ public class Genome implements Cloneable {
         int mutatedChromosome = genomeScheme.getGeneToChromosomeMap().get(
             MathUtils.getRandom(genomeScheme.getGenesOverall()));
         chromosomes.get(mutatedChromosome).mutate(mutationEffect);
-        this.fitness =this.collectFitness();
+        this.fitnessDeviation = this.collectFitness();
     }
 
 
@@ -58,7 +54,7 @@ public class Genome implements Cloneable {
             this.chromosomes.stream().forEach(chromo -> clonedChromosomes.add(chromo.clone()));
             clone.genomeScheme = this.genomeScheme;
             clone.chromosomes = clonedChromosomes;
-            clone.fitness = clone.collectFitness();
+            clone.fitnessDeviation = clone.collectFitness();
             return clone;
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();

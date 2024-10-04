@@ -1,28 +1,27 @@
 package com.github.syndexmx.fisherstheorem.domain;
 
 import lombok.Getter;
-import lombok.Setter;
 
 public class Gene implements Cloneable {
 
-    public static final double STARTING_FITNESS = 0.0;
+    public static final double STARTING_FITNESS_DEVIATION = 0.0;
 
     @Getter
-    private double fitness;
+    private double fitnessDeviation;
 
-    Gene(double fitness) {
-        this.fitness = fitness;
+    Gene(double fitnessDeviation) {
+        this.fitnessDeviation = fitnessDeviation;
     }
 
     public void mutate(double mutationEffect) {
-        fitness +=mutationEffect;
+        fitnessDeviation +=mutationEffect;
     }
 
     @Override
     public Gene clone() {
         try {
             Gene clone = (Gene) super.clone();
-            clone.fitness = this.fitness;
+            clone.fitnessDeviation = this.fitnessDeviation;
             return clone;
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();

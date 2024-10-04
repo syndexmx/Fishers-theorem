@@ -14,26 +14,27 @@ public class Generation {
     @Getter
     private Population population;
 
+    @Getter
+    private double fitnessDeviation;
+
     public Generation(SimulationScheme simulationScheme, GenomeScheme genomeScheme) {
         population = new Population(simulationScheme, genomeScheme);
         generationIndex = 0;
-        log.info("GENERATION 0. Population seeded");
+        fitnessDeviation = population.getFitnessDeviation();
     }
 
     public Generation(Population childPopulation, int nextGenerationIndex) {
         this.population = childPopulation;
         generationIndex = nextGenerationIndex;
+        fitnessDeviation = population.getFitnessDeviation();
     }
 
     public Generation nextGeneration(double reproductionFactor) {
         generationIndex++;
-        log.info("Generation " + generationIndex + ":  ");
         Population childPopulation = population.sex(reproductionFactor);
         childPopulation.differentiallySurvive();
         childPopulation.differentiallyReproduce();
         Generation childGeneration = new Generation(childPopulation, generationIndex);
-        double fitness = childPopulation.collectFitness();
-        log.info("Fitness: " + (fitness + 1.0));
         return childGeneration;
     }
 

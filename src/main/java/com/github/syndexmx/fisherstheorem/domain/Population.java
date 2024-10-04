@@ -22,6 +22,9 @@ public class Population {
     @Getter
     SimulationScheme simulationScheme;
 
+    @Getter
+    private double fitnessDeviation;
+
     Population(SimulationScheme simulationScheme, GenomeScheme genomeScheme) {
         males = new ArrayList<Individual>();
         females = new ArrayList<Individual>();
@@ -34,6 +37,7 @@ public class Population {
                 females.add(individual);
             }
         }
+        fitnessDeviation = collectFitness();
     }
 
     public Population sex(Double reproductionFactor) {
@@ -54,10 +58,11 @@ public class Population {
         return childPopulation;
     }
 
-    Population(SimulationScheme simulationScheme) {
+    public Population(SimulationScheme simulationScheme) {
         this.males = new ArrayList<Individual>();
         this.females = new ArrayList<Individual>();
         this.simulationScheme = simulationScheme;
+        fitnessDeviation = collectFitness();
     }
 
     public double collectFitness() {
@@ -84,6 +89,7 @@ public class Population {
                      | (MathUtils.getRandomBooleanWith(1.0 + i.getFitness())))
                 .forEach(i -> survivedFemales.add(i.clone()));
         this.females = survivedFemales;
+        fitnessDeviation = collectFitness();
     }
 
     public void differentiallyReproduce() {
@@ -99,5 +105,7 @@ public class Population {
                         & (MathUtils.getRandomBooleanWith(i.getFitness()))))
                 .forEach(i -> updatedFemales.add(i.clone()));
         this.females = updatedFemales;
+        fitnessDeviation = collectFitness();
     }
+
 }
