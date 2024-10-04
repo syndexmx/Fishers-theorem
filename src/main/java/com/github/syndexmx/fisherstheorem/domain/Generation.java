@@ -14,9 +14,13 @@ public class Generation {
     @Getter
     private Population population;
 
+    @Getter
+    private double fitnessDeviation;
+
     public Generation(SimulationScheme simulationScheme, GenomeScheme genomeScheme) {
         population = new Population(simulationScheme, genomeScheme);
         generationIndex = 0;
+        fitnessDeviation = population.getFitnessDeviation();
         log.info("GENERATION 0. Population seeded");
     }
 
@@ -32,8 +36,8 @@ public class Generation {
         childPopulation.differentiallySurvive();
         childPopulation.differentiallyReproduce();
         Generation childGeneration = new Generation(childPopulation, generationIndex);
-        double fitness = childPopulation.collectFitness();
-        log.info("Fitness: " + (fitness + 1.0));
+        double fitness = 1.0 + childPopulation.getFitnessDeviation();
+        log.info("Fitness deviation: " + fitness);
         return childGeneration;
     }
 

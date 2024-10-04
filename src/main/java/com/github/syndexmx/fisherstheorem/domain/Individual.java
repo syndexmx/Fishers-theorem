@@ -2,7 +2,6 @@ package com.github.syndexmx.fisherstheorem.domain;
 
 import com.github.syndexmx.fisherstheorem.utils.MathUtils;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -51,7 +50,7 @@ public class Individual implements Cloneable{
     }
 
     private double collectFitness() {
-        return this.fitness = paternalGenome.getFitness() + maternalGenome.getFitness();
+        return this.fitness = paternalGenome.getFitnessDeviation() + maternalGenome.getFitnessDeviation();
     }
 
     public Genome getHaploGenome() {

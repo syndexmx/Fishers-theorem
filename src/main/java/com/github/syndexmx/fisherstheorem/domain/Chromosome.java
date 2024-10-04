@@ -16,28 +16,28 @@ public class Chromosome implements Cloneable {
     List<Gene> genes;
 
     @Getter
-    double fitness;
+    double fitnessDeviation;
 
     public Chromosome(Integer numberGenes) {
         List<Gene> generatedGenes = new ArrayList<Gene>();
         for (int i = 0; i < numberGenes; i++) {
-            generatedGenes.add(new Gene(Gene.STARTING_FITNESS));
+            generatedGenes.add(new Gene(Gene.STARTING_FITNESS_DEVIATION));
         }
         this.genes = generatedGenes;
-        this.fitness = this.collectFitness();
+        this.fitnessDeviation = this.collectFitness();
     }
 
     private double collectFitness() {
         double joinFitness =
-                genes.stream().mapToDouble(gene -> gene.getFitness())
-                        .reduce(0.0, (accumulator, fitness) -> accumulator + fitness);
+                genes.stream().mapToDouble(gene -> gene.getFitnessDeviation())
+                        .reduce(0.0, (accumulator, fitnessDeviation) -> accumulator + fitnessDeviation);
         return joinFitness;
     }
 
     public void mutate(double mutationEffect) {
         int mutatedGene = MathUtils.getRandom(genes.size());
         genes.get(mutatedGene).mutate(mutationEffect);
-        fitness = this.collectFitness();
+        fitnessDeviation = this.collectFitness();
     }
 
     @Override
@@ -47,7 +47,7 @@ public class Chromosome implements Cloneable {
             List<Gene> clonedGenes = new ArrayList<>();
             this.genes.stream().forEach(gene -> clonedGenes.add(gene.clone()));
             cloneChromo.genes = clonedGenes;
-            cloneChromo.fitness = cloneChromo.collectFitness();
+            cloneChromo.fitnessDeviation = cloneChromo.collectFitness();
             return cloneChromo;
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
