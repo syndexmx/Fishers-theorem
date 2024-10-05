@@ -34,8 +34,8 @@ public class ResultsLoggingService {
                 .simulationEntity(simulationEntity)
                 .generation(results.getGeneration())
                 .fitness(results.getFitness())
-                .firstHalfDfDt(results.getFirstHalfDfDt())
-                .secondHalfDfDt(results.getSecondHalfDfDt())
+                .firstQuartDfDt(results.getFirstQuartDfDt())
+                .lastQuartDfDt(results.getLastQuartDfDt())
                 .build();
         return resultsEntity;
     }

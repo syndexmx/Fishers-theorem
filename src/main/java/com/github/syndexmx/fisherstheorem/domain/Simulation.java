@@ -4,7 +4,6 @@ import com.github.syndexmx.fisherstheorem.services.ResultsLoggingService;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,28 +53,29 @@ public class Simulation {
 
     private void logIt() {
         int generationIndex = generation.getGenerationIndex();
-        if (generation.getGenerationIndex() > 3) {
+        if (generation.getGenerationIndex() > 8) {
             double startPeriodFitnessDev = fitnessDeviationHistory.get(0);
-            double middlePeriodFitnessDev = fitnessDeviationHistory.get(generationIndex / 2);
+            double firstQuartFitnessDev = fitnessDeviationHistory.get(generationIndex / 4);
+            double thirdQuartFitnessDev = fitnessDeviationHistory.get(generationIndex - generationIndex / 4);
             double endPeriodFitnessDev = fitnessDeviationHistory.get(generationIndex);
-            double firstHalfRate = (middlePeriodFitnessDev - startPeriodFitnessDev)
-                    / (generationIndex / 2);
-            double secondHalfRate = (endPeriodFitnessDev - middlePeriodFitnessDev)
-                    / (generationIndex - generationIndex / 2);
+            double firstQuartRate = (firstQuartFitnessDev - startPeriodFitnessDev)
+                    / (generationIndex / 4);
+            double lastQuartRate = (endPeriodFitnessDev - thirdQuartFitnessDev)
+                    / (generationIndex - generationIndex / 4);
             Results results = Results.builder()
                     .id(simulationId)
                     .simulation(this)
                     .generation(generationIndex)
                     .fitness(1.0 + endPeriodFitnessDev)
-                    .firstHalfDfDt(firstHalfRate)
-                    .secondHalfDfDt(secondHalfRate)
+                    .firstQuartDfDt(firstQuartRate)
+                    .lastQuartDfDt(lastQuartRate)
                     .build();
             resultsLoggingService.saveResults(simulationId, results);
             log.info("Generation " + generation.getGenerationIndex()
                     + " fitness = "
                     + (1.0 + generation.getFitnessDeviation())
-                    + "  Long-term fitness change: 1st half df/dt= " + firstHalfRate
-                    + "; 2nd half df/dt= " + secondHalfRate);
+                    + "  Long-term fitness change: 1st quart df/dt= " + firstQuartRate
+                    + "; 4nd quart df/dt= " + lastQuartRate);
         }
     }
 }

@@ -23,9 +23,9 @@ public class SimulationMonitoringService {
         result.append(" поколение: " + resultsEntity.getGeneration() + "; \n");
         result.append(" приспособленность(fitness): " + resultsEntity.getFitness() + "; \n");
         result.append(" скорость изменения приспособленности ");
-        result.append(" df/dt (по первой части времени): " + resultsEntity.getFirstHalfDfDt() + "; \n");
+        result.append(" df/dt (по первой четверти времени): " + resultsEntity.getFirstQuartDfDt() + "; \n");
         result.append(" скорость изменения приспособленности ");
-        result.append(" df/dt (по второй части времени): " + resultsEntity.getSecondHalfDfDt() + "; \n");
+        result.append(" df/dt (по последней четверти времени): " + resultsEntity.getLastQuartDfDt() + "; \n");
         return result.toString() ;
     }
 }

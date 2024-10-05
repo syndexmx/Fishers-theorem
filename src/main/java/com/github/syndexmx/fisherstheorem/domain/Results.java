@@ -1,6 +1,5 @@
 package com.github.syndexmx.fisherstheorem.domain;
 
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,8 +19,8 @@ public class Results {
 
     double fitness;
 
-    double firstHalfDfDt;
+    double firstQuartDfDt;
 
-    double secondHalfDfDt;
+    double lastQuartDfDt;
 
 }
