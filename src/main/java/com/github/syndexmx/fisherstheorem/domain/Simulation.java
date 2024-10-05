@@ -1,13 +1,19 @@
 package com.github.syndexmx.fisherstheorem.domain;
 
+import com.github.syndexmx.fisherstheorem.services.ResultsLoggingService;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
 public class Simulation {
+
+    @Getter
+    Long simulationId;
 
     @Getter
     private Generation generation;
@@ -20,6 +26,9 @@ public class Simulation {
 
     @Getter
     private List<Double> fitnessDeviationHistory;
+
+    @Setter
+    private ResultsLoggingService resultsLoggingService;
 
     public Simulation(SimulationScheme simulationScheme, GenomeScheme genomeScheme) {
         this.genomeScheme = genomeScheme;
@@ -34,7 +43,8 @@ public class Simulation {
         return generation.getGenerationIndex();
     }
 
-    public void runSimulation() {
+    public void runSimulation(Long simulationId) {
+        this.simulationId = simulationId;
         while (generation.getGenerationIndex() < simulationScheme.getGenerationsLimit()) {
             generation = generation.nextGeneration(simulationScheme.getReproductionFactor());
             fitnessDeviationHistory.add(generation.getFitnessDeviation());
@@ -52,6 +62,15 @@ public class Simulation {
                     / (generationIndex / 2);
             double secondHalfRate = (endPeriodFitnessDev - middlePeriodFitnessDev)
                     / (generationIndex - generationIndex / 2);
+            Results results = Results.builder()
+                    .id(simulationId)
+                    .simulation(this)
+                    .generation(generationIndex)
+                    .fitness(1.0 + endPeriodFitnessDev)
+                    .firstHalfDfDt(firstHalfRate)
+                    .secondHalfDfDt(secondHalfRate)
+                    .build();
+            resultsLoggingService.saveResults(simulationId, results);
             log.info("Generation " + generation.getGenerationIndex()
                     + " fitness = "
                     + (1.0 + generation.getFitnessDeviation())
