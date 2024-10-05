@@ -3,6 +3,7 @@ package com.github.syndexmx.fisherstheorem.entities;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
 
@@ -11,15 +12,15 @@ import org.hibernate.annotations.Cascade;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Getter
 public class ResultsEntity {
 
     @Id
             @Column(name = "results_id")
-            @GeneratedValue(strategy = GenerationType.AUTO)
     Long ResultsId;
 
     @JoinColumn (name = "sim_id")
-    @OneToOne
+    @OneToOne (fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     SimulationEntity simulationEntity;
 
