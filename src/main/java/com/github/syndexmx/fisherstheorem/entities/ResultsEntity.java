@@ -30,10 +30,10 @@ public class ResultsEntity {
     @Column(name = "fitness")
     double fitness;
 
-    @Column(name = "first_half_df_dt")
-    double firstHalfDfDt;
+    @Column(name = "first_quart_df_dt")
+    double firstQuartDfDt;
 
-    @Column(name = "second_half_df_dt")
-    double secondHalfDfDt;
+    @Column(name = "last_quart_df_dt")
+    double lastQuartDfDt;
 
 }
