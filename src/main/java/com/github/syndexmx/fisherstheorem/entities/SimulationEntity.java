@@ -30,4 +30,10 @@ public class SimulationEntity {
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     MutationProfileEntity mutationProfileEntity;
 
+    @JoinColumn(name = "results_id")
+    @OneToOne
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    ResultsEntity resultsEntity;
+
+
 }

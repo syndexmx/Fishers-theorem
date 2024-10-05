@@ -35,6 +35,9 @@ public class SimulationService {
     @Autowired
     SimulationRepository simulationRepository;
 
+    @Autowired
+    ResultsLoggingService resultsLoggingService;
+
     public Long simulate() {
         genomeScheme = new GenomeScheme(
                 genomeConfig.getMapChromosomeToGenes(),
@@ -51,21 +54,23 @@ public class SimulationService {
                 simulationConfig.getGenerationsLimit(),
                 mutationProfile);
         Simulation simulation = new Simulation(simulationScheme, genomeScheme);
+        Long id = simulationRepository.save(simulationToSimulationEntity(simulation)).getSimulationId();
+        simulation.setResultsLoggingService(resultsLoggingService);
         Thread thread = new Thread(){
             public void run() {
-                simulation.runSimulation();
+                simulation.runSimulation(id);
             }
         };
         thread.start();
-        Long id = simulationRepository.save(simulationToSimulationEntity(simulation)).getSimulationId();
         return id;
     }
 
-    private SimulationEntity simulationToSimulationEntity(Simulation simulation) {
+    public SimulationEntity simulationToSimulationEntity(Simulation simulation) {
         return SimulationEntity.builder()
                 .mutationProfileEntity(mutationProfileToMutationProfileEntity(mutationProfile))
                 .simulationSchemeEntity(simulationSchemeToSimulationSchemeEntity(
                         simulation.getSimulationScheme()))
+                .resultsEntity(null)
                 .build();
     }
 
