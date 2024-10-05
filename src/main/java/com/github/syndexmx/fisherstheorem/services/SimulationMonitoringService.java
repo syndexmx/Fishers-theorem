@@ -1,12 +1,31 @@
 package com.github.syndexmx.fisherstheorem.services;
 
+import com.github.syndexmx.fisherstheorem.entities.ResultsEntity;
+import com.github.syndexmx.fisherstheorem.repositories.ResultsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SimulationMonitoringService {
 
-    public String getStatus(Long simulationId) {
+    @Autowired
+    ResultsRepository resultsRepository;
 
-        return "Current Status on " + simulationId + ": generation " + " ?? " ;
+    @Autowired
+    @Lazy
+    SimulationService simulationService;
+
+    public String getStatus(Long simulationId) {
+        ResultsEntity resultsEntity = resultsRepository.findById(simulationId).get();
+        StringBuilder result = new StringBuilder();
+        result.append("Состояние симуляции <<" + simulationId + ">>\n");
+        result.append(" поколение: " + resultsEntity.getGeneration() + "; \n");
+        result.append(" приспособленность(fitness): " + resultsEntity.getFitness() + "; \n");
+        result.append(" скорость изменения приспособленности ");
+        result.append(" df/dt (по первой части времени): " + resultsEntity.getFirstHalfDfDt() + "; \n");
+        result.append(" скорость изменения приспособленности ");
+        result.append(" df/dt (по второй части времени): " + resultsEntity.getSecondHalfDfDt() + "; \n");
+        return result.toString() ;
     }
 }

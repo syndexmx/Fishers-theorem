@@ -2,6 +2,7 @@ package com.github.syndexmx.fisherstheorem.services;
 
 import com.github.syndexmx.fisherstheorem.domain.Results;
 import com.github.syndexmx.fisherstheorem.entities.ResultsEntity;
+import com.github.syndexmx.fisherstheorem.entities.SimulationEntity;
 import com.github.syndexmx.fisherstheorem.repositories.ResultsRepository;
 import com.github.syndexmx.fisherstheorem.repositories.SimulationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +19,19 @@ public class ResultsLoggingService {
     @Lazy
     SimulationService simulationService;
 
+    @Autowired
+    SimulationRepository simulationRepository;
+
     public void saveResults(Long id, Results results) {
+
         resultsRepository.save(resultsToResultsEntity(id, results));
     }
 
     private ResultsEntity resultsToResultsEntity(Long id, Results results) {
+        SimulationEntity simulationEntity =  simulationRepository.findById(id).get();
         ResultsEntity resultsEntity = ResultsEntity.builder()
                 .ResultsId(id)
-                .simulationEntity(
-                        simulationService.simulationToSimulationEntity(
-                        results.getSimulation()))
+                .simulationEntity(simulationEntity)
                 .generation(results.getGeneration())
                 .fitness(results.getFitness())
                 .firstHalfDfDt(results.getFirstHalfDfDt())
