@@ -24,7 +24,7 @@ public class SimulationMonitoringService {
         ResultsEntity resultsEntity = resultsRepository.findById(simulationId).orElse(
                 ResultsEntity.builder()
                     .generation(0)
-                    .fitness(0)
+                    .fitness(1)
                     .firstQuartDfDt(0)
                     .lastQuartDfDt(0)
                     .build());

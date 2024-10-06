@@ -30,8 +30,7 @@ public class ResultsLoggingService {
     private ResultsEntity resultsToResultsEntity(Long id, Results results) {
         SimulationEntity simulationEntity =  simulationRepository.findById(id).get();
         ResultsEntity resultsEntity = ResultsEntity.builder()
-                .ResultsId(id)
-                .simulationEntity(simulationEntity)
+                .simulationEntity(id)
                 .generation(results.getGeneration())
                 .fitness(results.getFitness())
                 .firstQuartDfDt(results.getFirstQuartDfDt())

@@ -16,13 +16,9 @@ import org.hibernate.annotations.Cascade;
 public class ResultsEntity {
 
     @Id
-            @Column(name = "results_id")
-    Long ResultsId;
-
-    @JoinColumn (name = "sim_id")
-    @OneToOne (fetch = FetchType.LAZY)
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    SimulationEntity simulationEntity;
+    @Column(name = "results_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    Long simulationEntity;
 
     @Column(name = "generations")
     int generation;

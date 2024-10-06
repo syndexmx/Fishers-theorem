@@ -24,22 +24,22 @@ public class Simulation {
     private GenomeScheme genomeScheme;
 
     @Getter
+    private Results results;
+
+    @Getter
     private List<Double> fitnessDeviationHistory;
 
     @Setter
     private ResultsLoggingService resultsLoggingService;
 
-    public Simulation(SimulationScheme simulationScheme, GenomeScheme genomeScheme) {
+    public Simulation(SimulationScheme simulationScheme, GenomeScheme genomeScheme, Results results) {
         this.genomeScheme = genomeScheme;
         this.simulationScheme = simulationScheme;
+        this.results = results;
         generation = new Generation(this.simulationScheme, this.genomeScheme);
         fitnessDeviationHistory = new ArrayList<Double>();
         fitnessDeviationHistory.add(generation.getFitnessDeviation());
         log.info("Generation " + generation.getGenerationIndex());
-    }
-
-    public int getGenerationIndex() {
-        return generation.getGenerationIndex();
     }
 
     public void runSimulation(Long simulationId) {
@@ -70,6 +70,7 @@ public class Simulation {
                     .firstQuartDfDt(firstQuartRate)
                     .lastQuartDfDt(lastQuartRate)
                     .build();
+            this.results = results;
             resultsLoggingService.saveResults(simulationId, results);
             log.info("Generation " + generation.getGenerationIndex()
                     + " fitness = "
