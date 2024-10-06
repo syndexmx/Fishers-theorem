@@ -17,27 +17,37 @@ public class SimulationMonitoringService {
     SimulationService simulationService;
 
     public String getSimulationId(Long simulationId) {
-        ResultsEntity resultsEntity = resultsRepository.findById(simulationId).get();
         return simulationId.toString();
     }
 
+    private ResultsEntity readResultsEntity(Long simulationId) {
+        ResultsEntity resultsEntity = resultsRepository.findById(simulationId).orElse(
+                ResultsEntity.builder()
+                    .generation(0)
+                    .fitness(0)
+                    .firstQuartDfDt(0)
+                    .lastQuartDfDt(0)
+                    .build());
+        return resultsEntity;
+    }
+
     public String getGenerations(Long simulationId) {
-        ResultsEntity resultsEntity = resultsRepository.findById(simulationId).get();
+        ResultsEntity resultsEntity = readResultsEntity(simulationId);
         return resultsEntity.getGeneration() + "\n";
     }
 
     public String getFitness(Long simulationId) {
-        ResultsEntity resultsEntity = resultsRepository.findById(simulationId).get();
+        ResultsEntity resultsEntity = readResultsEntity(simulationId);
         return resultsEntity.getFitness() + "\n";
     }
 
     public String getStartDfDt(Long simulationId) {
-        ResultsEntity resultsEntity = resultsRepository.findById(simulationId).get();
+        ResultsEntity resultsEntity = readResultsEntity(simulationId);
         return resultsEntity.getFirstQuartDfDt() + "\n";
     }
 
     public String getEndDfDt(Long simulationId) {
-        ResultsEntity resultsEntity = resultsRepository.findById(simulationId).get();
+        ResultsEntity resultsEntity = readResultsEntity(simulationId);
         return resultsEntity.getLastQuartDfDt() + "\n";
     }
 }
