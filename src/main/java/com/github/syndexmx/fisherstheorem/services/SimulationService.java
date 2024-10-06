@@ -3,11 +3,9 @@ package com.github.syndexmx.fisherstheorem.services;
 import com.github.syndexmx.fisherstheorem.configurations.GenomeConfig;
 import com.github.syndexmx.fisherstheorem.configurations.MutationsConfig;
 import com.github.syndexmx.fisherstheorem.configurations.SimulationConfig;
-import com.github.syndexmx.fisherstheorem.domain.GenomeScheme;
-import com.github.syndexmx.fisherstheorem.domain.MutationProfile;
-import com.github.syndexmx.fisherstheorem.domain.Simulation;
-import com.github.syndexmx.fisherstheorem.domain.SimulationScheme;
+import com.github.syndexmx.fisherstheorem.domain.*;
 import com.github.syndexmx.fisherstheorem.entities.MutationProfileEntity;
+import com.github.syndexmx.fisherstheorem.entities.ResultsEntity;
 import com.github.syndexmx.fisherstheorem.entities.SimulationEntity;
 import com.github.syndexmx.fisherstheorem.entities.SimulationSchemeEntity;
 import com.github.syndexmx.fisherstheorem.repositories.SimulationRepository;
@@ -53,7 +51,9 @@ public class SimulationService {
                 simulationConfig.getReproductionFactor(),
                 simulationConfig.getGenerationsLimit(),
                 mutationProfile);
-        Simulation simulation = new Simulation(simulationScheme, genomeScheme);
+        Results results = Results.builder()
+                .build();
+        Simulation simulation = new Simulation(simulationScheme, genomeScheme, results);
         Long id = simulationRepository.save(simulationToSimulationEntity(simulation)).getSimulationId();
         simulation.setResultsLoggingService(resultsLoggingService);
         Thread thread = new Thread(){
@@ -70,7 +70,8 @@ public class SimulationService {
                 .mutationProfileEntity(mutationProfileToMutationProfileEntity(mutationProfile))
                 .simulationSchemeEntity(simulationSchemeToSimulationSchemeEntity(
                         simulation.getSimulationScheme()))
-                .resultsEntity(null)
+                .resultsEntity(ResultsEntity.builder()
+                        .build())
                 .build();
     }
 
