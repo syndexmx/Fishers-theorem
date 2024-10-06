@@ -61,7 +61,7 @@ public class Simulation {
             double firstQuartRate = (firstQuartFitnessDev - startPeriodFitnessDev)
                     / (generationIndex / 4);
             double lastQuartRate = (endPeriodFitnessDev - thirdQuartFitnessDev)
-                    / (generationIndex - generationIndex / 4);
+                    / (generationIndex - generationIndex /4);
             Results results = Results.builder()
                     .id(simulationId)
                     .simulation(this)
@@ -75,7 +75,9 @@ public class Simulation {
                     + " fitness = "
                     + (1.0 + generation.getFitnessDeviation())
                     + "  Long-term fitness change: 1st quart df/dt= " + firstQuartRate
-                    + "; 4nd quart df/dt= " + lastQuartRate);
+                    + "; 4th quart df/dt= " + lastQuartRate);
+        } else {
+            log.info("Generation " + generation.getGenerationIndex());
         }
     }
 }
