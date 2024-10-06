@@ -23,8 +23,19 @@
         </form>
     </div>
     </p>
+    <h3>
+        Поколение: <span th:text = "${simulationgeneration}"/><br/>
+    </h3>
     <p>
-        <span th:text = "${simulationstatus}"/>
+        Приспособленность: <span th:text = "${simulationfitness}"/><br/>
+    </p>
+    <p>
+        Скорость изменения приспособленности (df/dt) в первой четверти периода:
+        <span th:text = "${simulationstartdfdt}"/><br/>
+    </p>
+    <p>
+        Скорость изменения приспособленности (df/dt) в последней четверти периода:
+        <span th:text = "${simulationenddfdt}"/><br/>
     </p>
 
 </div>

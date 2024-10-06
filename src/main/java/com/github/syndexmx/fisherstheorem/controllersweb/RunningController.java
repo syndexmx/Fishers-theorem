@@ -30,8 +30,10 @@ public class RunningController {
     @GetMapping("/running/{simulationid}")
     public String runningPage(@PathVariable(value = "simulationid") Long simulationId, Model model) {
         model.addAttribute("simulationid", simulationId);
-        String simulationStatus = simulationMonitoringService.getStatus(simulationId);
-        model.addAttribute("simulationstatus", simulationStatus);
+        model.addAttribute("simulationgeneration", simulationMonitoringService.getGenerations(simulationId));
+        model.addAttribute("simulationfitness", simulationMonitoringService.getFitness(simulationId));
+        model.addAttribute("simulationstartdfdt", simulationMonitoringService.getStartDfDt(simulationId));
+        model.addAttribute("simulationenddfdt", simulationMonitoringService.getEndDfDt(simulationId));
         return "running";
     }
 

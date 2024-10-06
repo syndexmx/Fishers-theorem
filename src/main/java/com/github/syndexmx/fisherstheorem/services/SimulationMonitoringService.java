@@ -16,16 +16,28 @@ public class SimulationMonitoringService {
     @Lazy
     SimulationService simulationService;
 
-    public String getStatus(Long simulationId) {
+    public String getSimulationId(Long simulationId) {
         ResultsEntity resultsEntity = resultsRepository.findById(simulationId).get();
-        StringBuilder result = new StringBuilder();
-        result.append("Состояние симуляции <<" + simulationId + ">>\n");
-        result.append(" поколение: " + resultsEntity.getGeneration() + "; \n");
-        result.append(" приспособленность(fitness): " + resultsEntity.getFitness() + "; \n");
-        result.append(" скорость изменения приспособленности ");
-        result.append(" df/dt (по первой четверти времени): " + resultsEntity.getFirstQuartDfDt() + "; \n");
-        result.append(" скорость изменения приспособленности ");
-        result.append(" df/dt (по последней четверти времени): " + resultsEntity.getLastQuartDfDt() + "; \n");
-        return result.toString() ;
+        return simulationId.toString();
+    }
+
+    public String getGenerations(Long simulationId) {
+        ResultsEntity resultsEntity = resultsRepository.findById(simulationId).get();
+        return resultsEntity.getGeneration() + "\n";
+    }
+
+    public String getFitness(Long simulationId) {
+        ResultsEntity resultsEntity = resultsRepository.findById(simulationId).get();
+        return resultsEntity.getFitness() + "\n";
+    }
+
+    public String getStartDfDt(Long simulationId) {
+        ResultsEntity resultsEntity = resultsRepository.findById(simulationId).get();
+        return resultsEntity.getFirstQuartDfDt() + "\n";
+    }
+
+    public String getEndDfDt(Long simulationId) {
+        ResultsEntity resultsEntity = resultsRepository.findById(simulationId).get();
+        return resultsEntity.getLastQuartDfDt() + "\n";
     }
 }
