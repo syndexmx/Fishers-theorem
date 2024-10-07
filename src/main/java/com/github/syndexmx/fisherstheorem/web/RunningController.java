@@ -1,8 +1,7 @@
-package com.github.syndexmx.fisherstheorem.controllersweb;
+package com.github.syndexmx.fisherstheorem.web;
 
 import com.github.syndexmx.fisherstheorem.services.SimulationMonitoringService;
 import com.github.syndexmx.fisherstheorem.services.SimulationService;
-import jakarta.websocket.server.PathParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

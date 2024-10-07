@@ -1,4 +1,4 @@
-package com.github.syndexmx.fisherstheorem.controllersweb;
+package com.github.syndexmx.fisherstheorem.web;
 
 import com.github.syndexmx.fisherstheorem.configurations.MutationsConfig;
 import com.github.syndexmx.fisherstheorem.configurations.SimulationConfig;
@@ -27,6 +27,6 @@ public class SimulatorController {
         model.addAttribute("beneficialeffect", mutationsConfig.getBeneficialMutationsEffect());
         model.addAttribute("deleteriousrate", mutationsConfig.getDeleteriousMutationsRate());
         model.addAttribute("deleteriouseffect", mutationsConfig.getDeleteriousMutationsEffect());
-        return "simulate";
+        return "simulation";
     }
 }

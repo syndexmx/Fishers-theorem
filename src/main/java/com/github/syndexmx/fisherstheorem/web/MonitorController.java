@@ -1,4 +1,4 @@
-package com.github.syndexmx.fisherstheorem.controllersweb;
+package com.github.syndexmx.fisherstheorem.web;
 
 import com.github.syndexmx.fisherstheorem.services.SimulationMonitoringService;
 import com.github.syndexmx.fisherstheorem.services.SimulationService;
