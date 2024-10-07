@@ -21,21 +21,21 @@ public class RunningController {
     SimulationMonitoringService simulationMonitoringService;
 
     @PostMapping("/running")
-    public String runningPageStart(@RequestParam("populationlimit") Integer populationLimit, Model model) {
+    public String runningPageStart(@RequestParam("populationlimit") Integer populationLimit,
+                                   @RequestParam("generationslimit") Integer generationsLimit,
+                                   @RequestParam("beneficialrate") Double beneficialRate,
+                                   @RequestParam("beneficialeffect") Double beneficialEffect,
+                                   @RequestParam("deleteriousrate") Double deleteriousRate,
+                                   @RequestParam("deleteriouseffect") Double deleteriousEffect,
+                                   Model model) {
         Long id = simulationService.simulate();
         model.addAttribute("simulationid", id);
-        log.info("Population limit. Requestered: " + populationLimit);
+        model.addAttribute("populationlimit", populationLimit);
+        model.addAttribute("generationslimit", generationsLimit);
+        model.addAttribute("beneficialrate", beneficialRate);
+        model.addAttribute("beneficialeffect", beneficialEffect);
+        model.addAttribute("deleteriousrate", deleteriousRate);
+        model.addAttribute("deleteriouseffect", deleteriousEffect);
         return "running";
     }
-
-    @GetMapping("/running/{simulationid}")
-    public String runningPage(@PathVariable(value = "simulationid") Long simulationId, Model model) {
-        model.addAttribute("simulationid", simulationId);
-        model.addAttribute("simulationgeneration", simulationMonitoringService.getGenerations(simulationId));
-        model.addAttribute("simulationfitness", simulationMonitoringService.getFitness(simulationId));
-        model.addAttribute("simulationstartdfdt", simulationMonitoringService.getStartDfDt(simulationId));
-        model.addAttribute("simulationenddfdt", simulationMonitoringService.getEndDfDt(simulationId));
-        return "running";
-    }
-
 }

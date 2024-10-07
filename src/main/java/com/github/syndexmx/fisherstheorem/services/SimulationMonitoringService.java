@@ -33,7 +33,14 @@ public class SimulationMonitoringService {
 
     public String getGenerations(Long simulationId) {
         ResultsEntity resultsEntity = readResultsEntity(simulationId);
-        return resultsEntity.getGeneration() + "\n";
+        Integer generationIndex = resultsEntity.getGeneration();
+        String generationString;
+        if (generationIndex == 0) {
+            generationString = "Симуляция запускается. Обновите немного позже \n";
+        } else {
+            generationString = generationIndex + "\n";
+        }
+        return  generationString;
     }
 
     public String getFitness(Long simulationId) {
