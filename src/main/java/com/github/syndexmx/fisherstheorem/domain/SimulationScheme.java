@@ -1,18 +1,14 @@
 package com.github.syndexmx.fisherstheorem.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 
+@Builder
 public class SimulationScheme {
 
     @Getter
-    private Integer populationSize;
-
-    @Getter
     private Integer populationLimit;
-
-    @Getter
-    private Double reproductionFactor;
 
     @Getter
     private Integer generationsLimit;
@@ -20,11 +16,9 @@ public class SimulationScheme {
     @Getter
     private MutationProfile mutationProfile;
 
-    public SimulationScheme(int populationSize, int populationLimit, double reproductionFactor,
-                            int generationsLimit, MutationProfile mutationProfile) {
-        this.populationSize = populationSize;
+    public SimulationScheme(int populationLimit, int generationsLimit,
+                            MutationProfile mutationProfile) {
         this.populationLimit = populationLimit;
-        this.reproductionFactor = reproductionFactor;
         this.generationsLimit = generationsLimit;
         this.mutationProfile = mutationProfile;
     }

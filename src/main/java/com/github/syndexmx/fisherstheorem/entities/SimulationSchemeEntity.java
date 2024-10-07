@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @NoArgsConstructor
@@ -19,20 +20,15 @@ public class SimulationSchemeEntity {
     @Column(name = "scheme_id")
     Long schemeId;
 
-    @Column(name = "pop_size")
-    private Integer populationSize;
-
     @Column(name = "pop_limit")
     private Integer populationLimit;
-
-    @Column(name = "r_factor")
-    private Double reproductionFactor;
 
     @Column(name = "gen_limit")
     private Integer generationsLimit;
 
     @OneToOne
-    @JoinColumn (name = "profile_id")
+    @JoinColumn (name = "mut_profile_id")
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private MutationProfileEntity mutationProfile;
 
 

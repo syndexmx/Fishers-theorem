@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Моделирование. Проверка теоремы Фишера</title>
+    <link th:href="@{/styles/main.css}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<div class="container">
+
+    <h2>    Моделирование. Проверка теоремы Фишера    </h2>
+
+    <h3>Мониторинг результатов</h3>
+    <p>
+    <div class="sbutton">
+        <form th:action="@{/monitor/} + ${simulationid}" method="GET" class="centeredcontent">
+            <button class="sbutton">
+                <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <b>Обновить</b>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;
+            </button>
+        </form>
+    </div>
+    </p>
+    <h3>
+        Поколение: <span th:text = "${simulationgeneration}"/><br/>
+    </h3>
+    <p>
+        Приспособленность: <span th:text = "${simulationfitness}"/><br/>
+    </p>
+    <p>
+        Скорость изменения приспособленности (df/dt) в первой четверти периода:
+        <span th:text = "${simulationstartdfdt}"/><br/>
+    </p>
+    <p>
+        Скорость изменения приспособленности (df/dt) в последней четверти периода:
+        <span th:text = "${simulationenddfdt}"/><br/>
+    </p>
+
+    <br/>
+</div>
+
+</body>
+</html>

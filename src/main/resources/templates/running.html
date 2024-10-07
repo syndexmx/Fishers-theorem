@@ -14,7 +14,7 @@
     <h3>Симуляция начата</h3>
     <p>
     <div class="sbutton">
-        <form th:action="@{/running/} + ${simulationid}" method="GET" class="centeredcontent">
+        <form th:action="@{/monitor/} + ${simulationid}" method="GET" class="centeredcontent">
             <button class="sbutton">
                 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <b>Обновить</b>
@@ -23,21 +23,16 @@
         </form>
     </div>
     </p>
-    <h3>
-        Поколение: <span th:text = "${simulationgeneration}"/><br/>
-    </h3>
-    <p>
-        Приспособленность: <span th:text = "${simulationfitness}"/><br/>
-    </p>
-    <p>
-        Скорость изменения приспособленности (df/dt) в первой четверти периода:
-        <span th:text = "${simulationstartdfdt}"/><br/>
-    </p>
-    <p>
-        Скорость изменения приспособленности (df/dt) в последней четверти периода:
-        <span th:text = "${simulationenddfdt}"/><br/>
-    </p>
 
+    <br/>
+    <p>
+        Предел популяции: <span th:text="${populationlimit}"/><br/>
+        Предел поколений: <span th:text="${generationslimit}"/><br/>
+        Частота полезных мутаций: <span th:text="${beneficialrate}"/><br/>
+        Эффект полезных мутаций: <span th:text="${beneficialeffect}"/><br/>
+        Частота вредных мутаций: <span th:text="${deleteriousrate}"/><br/>
+        Эффект вредных мутаций: <span th:text="${deleteriouseffect}"/><br/>
+    </p>
 </div>
 
 </body>

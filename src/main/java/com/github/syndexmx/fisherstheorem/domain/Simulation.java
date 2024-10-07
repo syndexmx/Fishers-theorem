@@ -45,7 +45,7 @@ public class Simulation {
     public void runSimulation(Long simulationId) {
         this.simulationId = simulationId;
         while (generation.getGenerationIndex() < simulationScheme.getGenerationsLimit()) {
-            generation = generation.nextGeneration(simulationScheme.getReproductionFactor());
+            generation = generation.nextGeneration();
             fitnessDeviationHistory.add(generation.getFitnessDeviation());
             logIt();
         }

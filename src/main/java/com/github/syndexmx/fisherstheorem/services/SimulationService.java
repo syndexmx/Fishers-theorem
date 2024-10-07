@@ -18,15 +18,7 @@ public class SimulationService {
     @Autowired
     GenomeConfig genomeConfig;
 
-    @Autowired
-    SimulationConfig simulationConfig;
-
-    @Autowired
-    MutationsConfig mutationsConfig;
-
     private GenomeScheme genomeScheme;
-
-    private SimulationScheme simulationScheme;
 
     private MutationProfile mutationProfile;
 
@@ -36,21 +28,11 @@ public class SimulationService {
     @Autowired
     ResultsLoggingService resultsLoggingService;
 
-    public Long simulate() {
+    public Long simulate(SimulationScheme simulationScheme) {
         genomeScheme = new GenomeScheme(
                 genomeConfig.getMapChromosomeToGenes(),
                 genomeConfig.getGeneNumberReductionFactor());
-        mutationProfile = new MutationProfile(
-                mutationsConfig.getBeneficialMutationsRate(),
-                mutationsConfig.getBeneficialMutationsEffect(),
-                mutationsConfig.getDeleteriousMutationsRate(),
-                mutationsConfig.getDeleteriousMutationsEffect());
-        simulationScheme = new SimulationScheme(
-                simulationConfig.getPopulationSize(),
-                simulationConfig.getPopulationLimit(),
-                simulationConfig.getReproductionFactor(),
-                simulationConfig.getGenerationsLimit(),
-                mutationProfile);
+        mutationProfile = simulationScheme.getMutationProfile();
         Results results = Results.builder()
                 .build();
         Simulation simulation = new Simulation(simulationScheme, genomeScheme, results);
@@ -87,8 +69,6 @@ public class SimulationService {
     private SimulationSchemeEntity simulationSchemeToSimulationSchemeEntity(SimulationScheme simulationScheme) {
         return SimulationSchemeEntity.builder()
                 .generationsLimit(simulationScheme.getGenerationsLimit())
-                .reproductionFactor(simulationScheme.getReproductionFactor())
-                .populationSize(simulationScheme.getPopulationSize())
                 .populationLimit(simulationScheme.getPopulationLimit())
                 .build();
     }
