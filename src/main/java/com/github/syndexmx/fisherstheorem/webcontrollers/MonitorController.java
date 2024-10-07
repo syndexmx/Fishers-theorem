@@ -1,4 +1,4 @@
-package com.github.syndexmx.fisherstheorem.web;
+package com.github.syndexmx.fisherstheorem.webcontrollers;
 
 import com.github.syndexmx.fisherstheorem.services.SimulationMonitoringService;
 import com.github.syndexmx.fisherstheorem.services.SimulationService;
@@ -25,7 +25,12 @@ public class MonitorController {
         model.addAttribute("simulationgeneration", simulationMonitoringService.getGenerations(simulationId));
         model.addAttribute("simulationfitness", simulationMonitoringService.getFitness(simulationId));
         model.addAttribute("simulationstartdfdt", simulationMonitoringService.getStartDfDt(simulationId));
-        model.addAttribute("simulationenddfdt", simulationMonitoringService.getEndDfDt(simulationId));
+        double dfdt = simulationMonitoringService.getEndDfDt(simulationId);
+        model.addAttribute("simulationenddfdt", dfdt);
+        model.addAttribute("beneficialrate",simulationMonitoringService.getBeneficialMutationRate(simulationId));
+        model.addAttribute("beneficialeffect",simulationMonitoringService.getBeneficialMutationEffect(simulationId));
+        model.addAttribute("deleteriousrate",simulationMonitoringService.getDeleteriousMutationRate(simulationId));
+        model.addAttribute("deleteriouseffect",simulationMonitoringService.getDeleteriousMutationEffect(simulationId));
         return "monitor";
     }
 }

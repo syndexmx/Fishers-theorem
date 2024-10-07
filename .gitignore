@@ -18,6 +18,7 @@ target/
 *.iws
 *.iml
 *.ipr
+/out/artifacts/fisherstheorem_jar/
 
 ### NetBeans ###
 /nbproject/private/
@@ -33,3 +34,4 @@ build/
 .vscode/
 /src/main/resources/application.properties
 /out/artifacts/fisherstheorem_jar/
+

@@ -1,4 +1,4 @@
-package com.github.syndexmx.fisherstheorem.web;
+package com.github.syndexmx.fisherstheorem.webcontrollers;
 
 import com.github.syndexmx.fisherstheorem.configurations.MutationsConfig;
 import com.github.syndexmx.fisherstheorem.configurations.SimulationConfig;

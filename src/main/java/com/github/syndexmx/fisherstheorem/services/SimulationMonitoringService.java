@@ -1,6 +1,9 @@
 package com.github.syndexmx.fisherstheorem.services;
 
+import com.github.syndexmx.fisherstheorem.entities.MutationProfileEntity;
 import com.github.syndexmx.fisherstheorem.entities.ResultsEntity;
+import com.github.syndexmx.fisherstheorem.entities.SimulationEntity;
+import com.github.syndexmx.fisherstheorem.repositories.MutationProfileRepository;
 import com.github.syndexmx.fisherstheorem.repositories.ResultsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -11,6 +14,9 @@ public class SimulationMonitoringService {
 
     @Autowired
     ResultsRepository resultsRepository;
+
+    @Autowired
+    MutationProfileRepository mutationProfileRepository;
 
     @Autowired
     @Lazy
@@ -29,6 +35,17 @@ public class SimulationMonitoringService {
                     .lastQuartDfDt(0)
                     .build());
         return resultsEntity;
+    }
+
+    private MutationProfileEntity readMutationProfileEntity(Long simulationId) {
+        MutationProfileEntity mutationProfile = mutationProfileRepository.findById(simulationId).orElse(
+                MutationProfileEntity.builder()
+                        .beneficialMutationsRate(0.0)
+                        .beneficialMutationsEffect(0.0)
+                        .deleteriousMutationsRate(0.0)
+                        .deleteriousMutationsEffect(0.0)
+                        .build());
+        return mutationProfile;
     }
 
     public String getGenerations(Long simulationId) {
@@ -53,8 +70,29 @@ public class SimulationMonitoringService {
         return resultsEntity.getFirstQuartDfDt() + "\n";
     }
 
-    public String getEndDfDt(Long simulationId) {
+    public Double getEndDfDt(Long simulationId) {
         ResultsEntity resultsEntity = readResultsEntity(simulationId);
-        return resultsEntity.getLastQuartDfDt() + "\n";
+        return resultsEntity.getLastQuartDfDt();
     }
+
+    public Double getBeneficialMutationRate(Long simulationId) {
+        MutationProfileEntity mutationProfileEntity = readMutationProfileEntity(simulationId);
+        return mutationProfileEntity.getBeneficialMutationsRate();
+    }
+
+    public Double getBeneficialMutationEffect(Long simulationId) {
+        MutationProfileEntity mutationProfileEntity = readMutationProfileEntity(simulationId);
+        return mutationProfileEntity.getBeneficialMutationsEffect();
+    }
+
+    public Double getDeleteriousMutationRate(Long simulationId) {
+        MutationProfileEntity mutationProfileEntity = readMutationProfileEntity(simulationId);
+        return mutationProfileEntity.getDeleteriousMutationsRate();
+    }
+
+    public Double getDeleteriousMutationEffect(Long simulationId) {
+        MutationProfileEntity mutationProfileEntity = readMutationProfileEntity(simulationId);
+        return mutationProfileEntity.getDeleteriousMutationsEffect();
+    }
+
 }
