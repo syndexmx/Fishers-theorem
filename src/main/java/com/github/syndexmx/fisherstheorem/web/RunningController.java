@@ -1,5 +1,7 @@
 package com.github.syndexmx.fisherstheorem.web;
 
+import com.github.syndexmx.fisherstheorem.domain.MutationProfile;
+import com.github.syndexmx.fisherstheorem.domain.SimulationScheme;
 import com.github.syndexmx.fisherstheorem.services.SimulationMonitoringService;
 import com.github.syndexmx.fisherstheorem.services.SimulationService;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +29,18 @@ public class RunningController {
                                    @RequestParam("deleteriousrate") Double deleteriousRate,
                                    @RequestParam("deleteriouseffect") Double deleteriousEffect,
                                    Model model) {
-        Long id = simulationService.simulate();
+        MutationProfile mutationProfile = MutationProfile.builder()
+                .beneficialMutationsRate(beneficialRate)
+                .beneficialMutationsEffect(beneficialEffect)
+                .deleteriousMutationsRate(deleteriousRate)
+                .deleteriousMutationsEffect(deleteriousEffect)
+                .build();
+        SimulationScheme simulationScheme = SimulationScheme.builder()
+                .populationLimit(populationLimit)
+                .generationsLimit(generationsLimit)
+                .mutationProfile(mutationProfile)
+                .build();
+        Long id = simulationService.simulate(simulationScheme);
         model.addAttribute("simulationid", id);
         model.addAttribute("populationlimit", populationLimit);
         model.addAttribute("generationslimit", generationsLimit);

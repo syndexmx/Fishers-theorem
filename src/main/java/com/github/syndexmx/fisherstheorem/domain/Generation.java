@@ -29,9 +29,9 @@ public class Generation {
         fitnessDeviation = population.getFitnessDeviation();
     }
 
-    public Generation nextGeneration(double reproductionFactor) {
+    public Generation nextGeneration() {
         generationIndex++;
-        Population childPopulation = population.sex(reproductionFactor);
+        Population childPopulation = population.sex();
         childPopulation.differentiallySurvive();
         childPopulation.differentiallyReproduce();
         Generation childGeneration = new Generation(childPopulation, generationIndex);

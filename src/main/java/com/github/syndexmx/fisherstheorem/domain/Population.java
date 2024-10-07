@@ -29,7 +29,7 @@ public class Population {
         males = new ArrayList<Individual>();
         females = new ArrayList<Individual>();
         this.simulationScheme = simulationScheme;
-        for (int i = 0; i < simulationScheme.getPopulationSize(); i++) {
+        for (int i = 0; i < simulationScheme.getPopulationLimit(); i++) {
             Individual individual = new Individual(genomeScheme, simulationScheme);
             if (MathUtils.getRandom(2) == 1) {
                 males.add(individual);
@@ -40,7 +40,7 @@ public class Population {
         fitnessDeviation = collectFitness();
     }
 
-    public Population sex(Double reproductionFactor) {
+    public Population sex() {
         Population childPopulation = new Population(simulationScheme);
         long childPopulationSize = simulationScheme.getPopulationLimit();
         for (int i = 0; i < childPopulationSize; i++) {

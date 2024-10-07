@@ -9,17 +9,11 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource("simulation.properties")
 public class SimulationConfig {
 
-    @Value("${population.size}")
-    @Getter
-    Integer populationSize;
 
     @Value("${population.limit}")
     @Getter
     Integer populationLimit;
 
-    @Value("${reproductionfactor.percent}")
-    @Getter
-    Double reproductionFactor;
 
     @Value("${simulation.generations.limit}")
     @Getter

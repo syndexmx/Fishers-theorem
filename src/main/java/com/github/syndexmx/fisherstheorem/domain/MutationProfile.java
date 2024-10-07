@@ -1,8 +1,10 @@
 package com.github.syndexmx.fisherstheorem.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 
+@Builder
 public class MutationProfile {
 
     @Getter

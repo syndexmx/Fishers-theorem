@@ -42,17 +42,21 @@
 
                     <th><td colspan="2">Мутации</td></th>
                     <tr><td>    Частота благоприятных мутаций (доля на поколение): </td><td>
-                        <input th:value="${beneficialrate}" name="beneficialrate" type="number"/>
+                        <input th:value="${beneficialrate}" name="beneficialrate" type="number"
+                               min="0" max="1" step="0.0001"/>
                     </td></tr>
                     <tr><td>    Эффект благоприятных мутаций (доля от 1): </td><td>
-                        <input th:value="${beneficialeffect}" name="beneficialeffect" type="number"/>
+                        <input th:value="${beneficialeffect}" name="beneficialeffect" type="number"
+                               min="0" max="1" step="0.0001"/>
                     </td></tr>
 
                     <tr><td>    Частота вредных мутаций (доля на поколение): </td><td>
-                        <input th:value="${deleteriousrate}" name="deleteriousrate" type="number"/>
+                        <input th:value="${deleteriousrate}" name="deleteriousrate" type="number"
+                               min="0" max="1" step="0.0001"/>
                     </td></tr>
                     <tr><td>    Эффект вредных мутаций (доля от 1): </td><td>
-                        <input th:value="${deleteriouseffect}" name="deleteriouseffect" type="number"/>
+                        <input th:value="${deleteriouseffect}" name="deleteriouseffect" type="number"
+                               min="0" max="1" step="0.0001"/>
                     </td></tr>
                 </table>
             </form>
