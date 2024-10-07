@@ -59,10 +59,10 @@ public class SimulationService {
 
     private MutationProfileEntity mutationProfileToMutationProfileEntity(MutationProfile mutationProfile) {
         return MutationProfileEntity.builder()
+                .beneficialMutationsRate(mutationProfile.getBeneficialMutationsRate())
                 .beneficialMutationsEffect(mutationProfile.getBeneficialMutationsEffect())
-                .beneficialMutationsRate(mutationProfile.getBeneficialMutationsEffect())
+                .deleteriousMutationsRate(mutationProfile.getDeleteriousMutationsRate())
                 .deleteriousMutationsEffect(mutationProfile.getDeleteriousMutationsEffect())
-                .deleteriousMutationsRate(mutationProfile.getDeleteriousMutationsEffect())
                 .build();
     }
 
