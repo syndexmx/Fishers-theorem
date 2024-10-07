@@ -29,6 +29,32 @@
                     <b>Запустить моделирование</b>
                     &nbsp;&nbsp;&nbsp;<br>&nbsp;
                 </button>
+                <br/>
+
+                <table>
+                    <th><td colspan="2">Популяция и симуляция</td></th>
+                    <tr><td>    Предел численности: </td><td>
+                        <input th:value="${populationlimit}" name="populationlimit" type="number"/>
+                    </td></tr>
+                    <tr><td>    Предел поколений: </td><td>
+                        <input th:value="${generationslimit}" name="generationslimit" type="number"/>
+                    </td></tr>
+
+                    <th><td colspan="2">Мутации</td></th>
+                    <tr><td>    Частота благоприятных мутаций (доля на поколение): </td><td>
+                        <input th:value="${beneficialrate}" name="beneficialrate" type="number"/>
+                    </td></tr>
+                    <tr><td>    Эффект благоприятных мутаций (доля от 1): </td><td>
+                        <input th:value="${beneficialeffect}" name="beneficialeffect" type="number"/>
+                    </td></tr>
+
+                    <tr><td>    Частота вредных мутаций (доля на поколение): </td><td>
+                        <input th:value="${deleteriousrate}" name="deleteriousrate" type="number"/>
+                    </td></tr>
+                    <tr><td>    Эффект вредных мутаций (доля от 1): </td><td>
+                        <input th:value="${deleteriouseffect}" name="deleteriouseffect" type="number"/>
+                    </td></tr>
+                </table>
             </form>
         </div>
     </p>
