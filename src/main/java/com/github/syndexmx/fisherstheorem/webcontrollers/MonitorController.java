@@ -1,4 +1,4 @@
-package com.github.syndexmx.fisherstheorem.web;
+package com.github.syndexmx.fisherstheorem.webcontrollers;
 
 import com.github.syndexmx.fisherstheorem.services.SimulationMonitoringService;
 import com.github.syndexmx.fisherstheorem.services.SimulationService;
@@ -25,7 +25,24 @@ public class MonitorController {
         model.addAttribute("simulationgeneration", simulationMonitoringService.getGenerations(simulationId));
         model.addAttribute("simulationfitness", simulationMonitoringService.getFitness(simulationId));
         model.addAttribute("simulationstartdfdt", simulationMonitoringService.getStartDfDt(simulationId));
-        model.addAttribute("simulationenddfdt", simulationMonitoringService.getEndDfDt(simulationId));
+        double dfdt = simulationMonitoringService.getEndDfDt(simulationId);
+        model.addAttribute("simulationenddfdt", dfdt);
+        double beneficialStream = simulationMonitoringService.getBeneficialMutationRate(simulationId)
+                * simulationMonitoringService.getBeneficialMutationEffect(simulationId);
+        model.addAttribute("beneficialstream",beneficialStream);
+        if (beneficialStream > 0 & dfdt > 0) {
+            model.addAttribute("beneficialfixationperc", dfdt / beneficialStream);
+        } else {
+            model.addAttribute("beneficialfixationperc", 0.0);
+        }
+        double deleteriousStream = - simulationMonitoringService.getDeleteriousMutationRate(simulationId)
+                * simulationMonitoringService.getDeleteriousMutationEffect(simulationId);
+        model.addAttribute("deleteriousstream", deleteriousStream);
+        if (deleteriousStream < 0 & dfdt < 0) {
+            model.addAttribute("deleteriousfixationperc",dfdt / beneficialStream);
+        } else {
+            model.addAttribute("deleteriousfixationperc", 0.0);
+        }
         return "monitor";
     }
 }
