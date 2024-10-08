@@ -7,17 +7,18 @@ import org.springframework.beans.factory.annotation.Value;
 @Builder
 public class MutationProfile {
 
-    @Getter
-    private Double beneficialMutationsEffect;
 
     @Getter
     private Double beneficialMutationsRate;
 
     @Getter
-    private Double deleteriousMutationsEffect;
+    private Double beneficialMutationsEffect;
 
     @Getter
     private Double deleteriousMutationsRate;
+
+    @Getter
+    private Double deleteriousMutationsEffect;
 
     public MutationProfile(Double beneficialMutationsRate,
                            Double beneficialMutationsEffect,
