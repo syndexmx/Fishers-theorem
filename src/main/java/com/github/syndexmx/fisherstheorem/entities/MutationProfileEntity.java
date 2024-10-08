@@ -19,15 +19,18 @@ public class MutationProfileEntity {
     @Column(name = "mut_profile_id")
     Long mutationProfileId;
 
-    @Column(name = "benef_effect")
-    private Double beneficialMutationsEffect;
 
     @Column(name = "benef_rate")
     private Double beneficialMutationsRate;
+
+    @Column(name = "benef_effect")
+    private Double beneficialMutationsEffect;
 
     @Column(name = "delet_effect")
     private Double deleteriousMutationsEffect;
 
     @Column(name = "delet_rate")
     private Double deleteriousMutationsRate;
+
+
 }
