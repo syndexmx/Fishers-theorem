@@ -1,10 +1,14 @@
 package com.github.syndexmx.fisherstheorem.services;
 
+import com.github.syndexmx.fisherstheorem.domain.Results;
+import com.github.syndexmx.fisherstheorem.domain.Simulation;
+import com.github.syndexmx.fisherstheorem.dtos.ResultsDto;
 import com.github.syndexmx.fisherstheorem.entities.MutationProfileEntity;
 import com.github.syndexmx.fisherstheorem.entities.ResultsEntity;
 import com.github.syndexmx.fisherstheorem.entities.SimulationEntity;
 import com.github.syndexmx.fisherstheorem.repositories.MutationProfileRepository;
 import com.github.syndexmx.fisherstheorem.repositories.ResultsRepository;
+import com.github.syndexmx.fisherstheorem.repositories.SimulationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -22,6 +26,9 @@ public class SimulationMonitoringService {
     @Lazy
     SimulationService simulationService;
 
+    @Autowired
+    SimulationRepository simulationRepository;
+
     public String getSimulationId(Long simulationId) {
         return simulationId.toString();
     }
@@ -35,6 +42,16 @@ public class SimulationMonitoringService {
                     .lastQuartDfDt(0)
                     .build());
         return resultsEntity;
+    }
+
+    public ResultsDto getResults(Long simulationId) {
+        ResultsEntity resultsEntity = readResultsEntity(simulationId);
+        return ResultsDto.builder()
+                .generation(resultsEntity.getGeneration())
+                .fitness(resultsEntity.getFitness())
+                .firstQuartDfDt(resultsEntity.getFirstQuartDfDt())
+                .lastQuartDfDt(resultsEntity.getLastQuartDfDt())
+                .build();
     }
 
     private MutationProfileEntity readMutationProfileEntity(Long simulationId) {
