@@ -17,9 +17,9 @@ public class MonitorApiController {
     @Autowired
     SimulationMonitoringService simulationMonitoringService;
 
-    @GetMapping("/api/simulation/{simulationid}")
-    public ResponseEntity<ResultsDto> getSimulationScheme(@PathVariable final Long simulationid) {
-        ResultsDto results = simulationMonitoringService.getResults(simulationid);
+    @GetMapping("/api/simulation/{simulationId}")
+    public ResponseEntity<ResultsDto> getSimulationScheme(@PathVariable final Long simulationId) {
+        ResultsDto results = simulationMonitoringService.getResults(simulationId);
         return new ResponseEntity(results, HttpStatus.FOUND);
     }
 }
