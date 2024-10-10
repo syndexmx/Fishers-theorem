@@ -1,8 +1,11 @@
 package com.github.syndexmx.fisherstheorem.services;
 
+import com.github.syndexmx.fisherstheorem.domain.Protocol;
 import com.github.syndexmx.fisherstheorem.domain.Results;
+import com.github.syndexmx.fisherstheorem.entities.ProtocolEntity;
 import com.github.syndexmx.fisherstheorem.entities.ResultsEntity;
 import com.github.syndexmx.fisherstheorem.entities.SimulationEntity;
+import com.github.syndexmx.fisherstheorem.repositories.ProtocolRepository;
 import com.github.syndexmx.fisherstheorem.repositories.ResultsRepository;
 import com.github.syndexmx.fisherstheorem.repositories.SimulationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +25,14 @@ public class ResultsLoggingService {
     @Autowired
     SimulationRepository simulationRepository;
 
-    public void saveResults(Long id, Results results) {
+    @Autowired
+    ProtocolRepository protocolRepository;
 
+    public void saveProtocol(Long id, Protocol protocol) {
+        protocolRepository.save(protocolToProtocolEntity(id, protocol));
+    }
+
+    public void saveResults(Long id,  Results results) {
         resultsRepository.save(resultsToResultsEntity(id, results));
     }
 
@@ -37,6 +46,16 @@ public class ResultsLoggingService {
                 .lastQuartDfDt(results.getLastQuartDfDt())
                 .build();
         return resultsEntity;
+    }
+
+    private ProtocolEntity protocolToProtocolEntity(Long id, Protocol protocol) {
+        SimulationEntity simulationEntity =  simulationRepository.findById(id).get();
+        ProtocolEntity protocolEntity =  ProtocolEntity.builder()
+                .simulationEntity(simulationEntity)
+                .generation(protocol.getGeneration())
+                .fitness(protocol.getFitness())
+                .build();
+        return protocolEntity;
     }
 
 }
