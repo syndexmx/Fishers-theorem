@@ -1,17 +1,27 @@
 package com.github.syndexmx.fisherstheorem.services;
 
+import com.github.syndexmx.fisherstheorem.domain.Protocol;
 import com.github.syndexmx.fisherstheorem.domain.Results;
 import com.github.syndexmx.fisherstheorem.domain.Simulation;
+import com.github.syndexmx.fisherstheorem.dtos.ProtocolDto;
 import com.github.syndexmx.fisherstheorem.dtos.ResultsDto;
 import com.github.syndexmx.fisherstheorem.entities.MutationProfileEntity;
+import com.github.syndexmx.fisherstheorem.entities.ProtocolEntity;
 import com.github.syndexmx.fisherstheorem.entities.ResultsEntity;
 import com.github.syndexmx.fisherstheorem.entities.SimulationEntity;
 import com.github.syndexmx.fisherstheorem.repositories.MutationProfileRepository;
+import com.github.syndexmx.fisherstheorem.repositories.ProtocolRepository;
 import com.github.syndexmx.fisherstheorem.repositories.ResultsRepository;
 import com.github.syndexmx.fisherstheorem.repositories.SimulationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.exact;
 
 @Service
 public class SimulationMonitoringService {
@@ -29,8 +39,32 @@ public class SimulationMonitoringService {
     @Autowired
     SimulationRepository simulationRepository;
 
+    @Autowired
+    ProtocolRepository protocolRepository;
+
     public String getSimulationId(Long simulationId) {
         return simulationId.toString();
+    }
+
+    public List<Protocol> getProtocols(Long simulationId) {
+        SimulationEntity simulationEntity =  simulationRepository.findById(simulationId).get();
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withMatcher("sim_id", exact())
+                .withIgnorePaths("protocol_item_id", "generation", "fitness");
+        Example<ProtocolEntity> example = Example.of(ProtocolEntity.builder()
+                .simulationEntity(simulationEntity).build(), matcher);
+        List<ProtocolEntity> listProtocolEntities = protocolRepository.findAll(example);
+        List<Protocol> listProtocols = listProtocolEntities.stream().map(protocolEntity
+                -> protocolEntityToProtocol(protocolEntity)).toList();
+        return listProtocols;
+    }
+
+    private Protocol protocolEntityToProtocol(ProtocolEntity protocolEntity) {
+        return Protocol.builder()
+                .simulation(protocolEntity.getSimulationEntity().getSimulationId())
+                .generation(protocolEntity.getGeneration())
+                .fitness(protocolEntity.getFitness())
+                .build();
     }
 
     private ResultsEntity readResultsEntity(Long simulationId) {
@@ -111,5 +145,4 @@ public class SimulationMonitoringService {
         MutationProfileEntity mutationProfileEntity = readMutationProfileEntity(simulationId);
         return mutationProfileEntity.getDeleteriousMutationsEffect();
     }
-
 }
