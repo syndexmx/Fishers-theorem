@@ -49,8 +49,7 @@ public class SimulationMonitoringService {
     public List<Protocol> getProtocols(Long simulationId) {
         SimulationEntity simulationEntity =  simulationRepository.findById(simulationId).get();
         ExampleMatcher matcher = ExampleMatcher.matching()
-                .withMatcher("sim_id", match
-                        -> match.equals(simulationEntity))
+                .withMatcher("sim_id", exact())
                 .withIgnorePaths("protocol_item_id", "generation", "fitness");
         Example<ProtocolEntity> example = Example.of(ProtocolEntity.builder()
                 .simulationEntity(simulationEntity).build(), matcher);
