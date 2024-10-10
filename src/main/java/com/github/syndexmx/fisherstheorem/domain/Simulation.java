@@ -48,11 +48,22 @@ public class Simulation {
         while (generation.getGenerationIndex() < simulationScheme.getGenerationsLimit()) {
             generation = generation.nextGeneration();
             fitnessDeviationHistory.add(generation.getFitnessDeviation());
-            logIt();
+            logProtocol();
+            logResults();
         }
     }
 
-    private void logIt() {
+    private void logProtocol() {
+        int generationIndex = generation.getGenerationIndex();
+        Protocol protocol = Protocol.builder()
+                .simulation(simulationId)
+                .generation(generationIndex)
+                .fitness(1.0 + fitnessDeviationHistory.get(generationIndex))
+                .build();
+        resultsLoggingService.saveProtocol(simulationId, protocol);
+    }
+
+    private void logResults() {
         int generationIndex = generation.getGenerationIndex();
         if (generation.getGenerationIndex() > 8) {
             double startPeriodFitnessDev = fitnessDeviationHistory.get(0);
