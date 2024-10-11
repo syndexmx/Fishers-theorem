@@ -19,8 +19,10 @@ public class Results {
 
     double fitness;
 
-    double firstQuartDfDt;
+    double firstTenthDfDt;
 
-    double lastQuartDfDt;
+    double middle2TenthDfDt;
+
+    double lastTenthDfDt;
 
 }

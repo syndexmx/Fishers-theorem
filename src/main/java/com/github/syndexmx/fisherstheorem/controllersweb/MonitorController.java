@@ -25,6 +25,7 @@ public class MonitorController {
         model.addAttribute("simulationgeneration", simulationMonitoringService.getGenerations(simulationId));
         model.addAttribute("simulationfitness", simulationMonitoringService.getFitness(simulationId));
         model.addAttribute("simulationstartdfdt", simulationMonitoringService.getStartDfDt(simulationId));
+        model.addAttribute("simulationmiddledfdt", simulationMonitoringService.getMiddleDfDt(simulationId));
         double dfdt = simulationMonitoringService.getEndDfDt(simulationId);
         model.addAttribute("simulationenddfdt", dfdt);
         model.addAttribute("beneficialrate",simulationMonitoringService.getBeneficialMutationRate(simulationId));

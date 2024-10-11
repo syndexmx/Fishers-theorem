@@ -1,7 +1,6 @@
 package com.github.syndexmx.fisherstheorem.domain;
 
 import com.github.syndexmx.fisherstheorem.services.ResultsLoggingService;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -65,30 +64,43 @@ public class Simulation {
 
     private void logResults() {
         int generationIndex = generation.getGenerationIndex();
-        if (generation.getGenerationIndex() > 8) {
+        if (generation.getGenerationIndex() > 10) {
+
             double startPeriodFitnessDev = fitnessDeviationHistory.get(0);
-            double firstQuartFitnessDev = fitnessDeviationHistory.get(generationIndex / 4);
-            double thirdQuartFitnessDev = fitnessDeviationHistory.get(generationIndex - generationIndex / 4);
+            double firstTenthFitnessDev = fitnessDeviationHistory.get(generationIndex / 10);
+            double firstTenthRate = (firstTenthFitnessDev - startPeriodFitnessDev)
+                    / (generationIndex / 10);
+
+            int fourthIndex = generationIndex-  generationIndex / 2 - generationIndex / 10;
+            double fourthTenthFitnessDev = fitnessDeviationHistory.get(fourthIndex);
+            int sixthIndex = generationIndex -  generationIndex / 2 + generationIndex / 10;
+            double sixthTenthFitnessDev = fitnessDeviationHistory.get(sixthIndex);
+            double middle2TenthRate = (sixthTenthFitnessDev - fourthTenthFitnessDev)
+                    / (sixthIndex -  fourthIndex);
+
+            double beforeLastTenthFitnessDev = fitnessDeviationHistory.get(generationIndex
+                    - generationIndex / 10);
             double endPeriodFitnessDev = fitnessDeviationHistory.get(generationIndex);
-            double firstQuartRate = (firstQuartFitnessDev - startPeriodFitnessDev)
-                    / (generationIndex / 4);
-            double lastQuartRate = (endPeriodFitnessDev - thirdQuartFitnessDev)
-                    / (generationIndex - generationIndex /4);
+            double lastQuartRate = (endPeriodFitnessDev - beforeLastTenthFitnessDev)
+                    / (generationIndex - generationIndex /10);
+
             Results results = Results.builder()
                     .id(simulationId)
                     .simulation(this)
                     .generation(generationIndex)
                     .fitness(1.0 + endPeriodFitnessDev)
-                    .firstQuartDfDt(firstQuartRate)
-                    .lastQuartDfDt(lastQuartRate)
+                    .firstTenthDfDt(firstTenthRate)
+                    .middle2TenthDfDt(middle2TenthRate)
+                    .lastTenthDfDt(lastQuartRate)
                     .build();
             this.results = results;
             resultsLoggingService.saveResults(simulationId, results);
             log.info("Generation " + generation.getGenerationIndex()
                     + " fitness = "
                     + (1.0 + generation.getFitnessDeviation())
-                    + "  Long-term fitness change: 1st quart df/dt= " + firstQuartRate
-                    + "; 4th quart df/dt= " + lastQuartRate);
+                    + "  Long-term fitness change: 1st tenth df/dt= " + firstTenthRate
+                    + "; middle df/dt= " + middle2TenthRate
+                    + "; last tenth df/dt= " + lastQuartRate);
         } else {
             log.info("Generation " + generation.getGenerationIndex());
         }

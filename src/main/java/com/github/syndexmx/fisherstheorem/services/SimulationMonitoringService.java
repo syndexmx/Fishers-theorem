@@ -1,9 +1,6 @@
 package com.github.syndexmx.fisherstheorem.services;
 
 import com.github.syndexmx.fisherstheorem.domain.Protocol;
-import com.github.syndexmx.fisherstheorem.domain.Results;
-import com.github.syndexmx.fisherstheorem.domain.Simulation;
-import com.github.syndexmx.fisherstheorem.dtos.ProtocolDto;
 import com.github.syndexmx.fisherstheorem.dtos.ResultsDto;
 import com.github.syndexmx.fisherstheorem.entities.MutationProfileEntity;
 import com.github.syndexmx.fisherstheorem.entities.ProtocolEntity;
@@ -72,8 +69,9 @@ public class SimulationMonitoringService {
                 ResultsEntity.builder()
                     .generation(0)
                     .fitness(1)
-                    .firstQuartDfDt(0)
-                    .lastQuartDfDt(0)
+                    .firstTenthDfDt(0)
+                    .middle2TenthDfDt(0)
+                    .lastTenthDfDt(0)
                     .build());
         return resultsEntity;
     }
@@ -83,8 +81,9 @@ public class SimulationMonitoringService {
         return ResultsDto.builder()
                 .generation(resultsEntity.getGeneration())
                 .fitness(resultsEntity.getFitness())
-                .firstQuartDfDt(resultsEntity.getFirstQuartDfDt())
-                .lastQuartDfDt(resultsEntity.getLastQuartDfDt())
+                .firstTenthDfDt(resultsEntity.getFirstTenthDfDt())
+                .middle2TenthDfDt(resultsEntity.getMiddle2TenthDfDt())
+                .lastTenthDfDt(resultsEntity.getLastTenthDfDt())
                 .build();
     }
 
@@ -118,12 +117,17 @@ public class SimulationMonitoringService {
 
     public String getStartDfDt(Long simulationId) {
         ResultsEntity resultsEntity = readResultsEntity(simulationId);
-        return resultsEntity.getFirstQuartDfDt() + "\n";
+        return resultsEntity.getFirstTenthDfDt() + "\n";
+    }
+
+    public String getMiddleDfDt(Long simulationId) {
+        ResultsEntity resultsEntity = readResultsEntity(simulationId);
+        return resultsEntity.getMiddle2TenthDfDt() + "\n";
     }
 
     public Double getEndDfDt(Long simulationId) {
         ResultsEntity resultsEntity = readResultsEntity(simulationId);
-        return resultsEntity.getLastQuartDfDt();
+        return resultsEntity.getLastTenthDfDt();
     }
 
     public Double getBeneficialMutationRate(Long simulationId) {
