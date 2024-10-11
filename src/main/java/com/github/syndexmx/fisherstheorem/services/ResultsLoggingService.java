@@ -42,8 +42,9 @@ public class ResultsLoggingService {
                 .simulationEntity(id)
                 .generation(results.getGeneration())
                 .fitness(results.getFitness())
-                .firstQuartDfDt(results.getFirstQuartDfDt())
-                .lastQuartDfDt(results.getLastQuartDfDt())
+                .firstTenthDfDt(results.getFirstTenthDfDt())
+                .middle2TenthDfDt(results.getMiddle2TenthDfDt())
+                .lastTenthDfDt(results.getLastTenthDfDt())
                 .build();
         return resultsEntity;
     }

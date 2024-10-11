@@ -1,6 +1,5 @@
 package com.github.syndexmx.fisherstheorem.dtos;
 
-import com.github.syndexmx.fisherstheorem.domain.Simulation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,9 +17,11 @@ import lombok.NoArgsConstructor;
 
         double fitness;
 
-        double firstQuartDfDt;
+        double firstTenthDfDt;
 
-        double lastQuartDfDt;
+        double middle2TenthDfDt;
+
+        double lastTenthDfDt;
 
     }
 

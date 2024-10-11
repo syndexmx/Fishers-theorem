@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "results")
@@ -26,10 +25,13 @@ public class ResultsEntity {
     @Column(name = "fitness")
     double fitness;
 
-    @Column(name = "first_quart_df_dt")
-    double firstQuartDfDt;
+    @Column(name = "first_10th_df_dt")
+    double firstTenthDfDt;
 
-    @Column(name = "last_quart_df_dt")
-    double lastQuartDfDt;
+    @Column(name = "middle_2_10th_df_dt")
+    double middle2TenthDfDt;
+
+    @Column(name = "last_10th_df_dt")
+    double lastTenthDfDt;
 
 }
