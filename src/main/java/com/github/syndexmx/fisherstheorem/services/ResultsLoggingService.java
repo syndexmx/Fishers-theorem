@@ -45,6 +45,8 @@ public class ResultsLoggingService {
                 .firstTenthDfDt(results.getFirstTenthDfDt())
                 .middle2TenthDfDt(results.getMiddle2TenthDfDt())
                 .lastTenthDfDt(results.getLastTenthDfDt())
+                .firstHalfD2fDt2(results.getFirstHalfD2fDt2())
+                .secondHalfD2fDt2(results.getSecondHalfD2fDt2())
                 .build();
         return resultsEntity;
     }

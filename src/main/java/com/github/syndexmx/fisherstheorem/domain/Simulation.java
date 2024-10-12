@@ -84,6 +84,10 @@ public class Simulation {
             double lastQuartRate = (endPeriodFitnessDev - beforeLastTenthFitnessDev)
                     / (generationIndex - generationIndex /10);
 
+            double firstHalfD2fDt2 = (middle2TenthRate - firstTenthRate) / (generationIndex / 2.0);
+
+            double secondHalfD2fDt2 = (lastQuartRate - middle2TenthRate) / (generationIndex / 2.0);
+
             Results results = Results.builder()
                     .id(simulationId)
                     .simulation(this)
@@ -92,15 +96,13 @@ public class Simulation {
                     .firstTenthDfDt(firstTenthRate)
                     .middle2TenthDfDt(middle2TenthRate)
                     .lastTenthDfDt(lastQuartRate)
+                    .firstHalfD2fDt2(firstHalfD2fDt2)
+                    .secondHalfD2fDt2(secondHalfD2fDt2)
                     .build();
             this.results = results;
             resultsLoggingService.saveResults(simulationId, results);
             log.info("Generation " + generation.getGenerationIndex()
-                    + " fitness = "
-                    + (1.0 + generation.getFitnessDeviation())
-                    + "  Long-term fitness change: 1st tenth df/dt= " + firstTenthRate
-                    + "; middle df/dt= " + middle2TenthRate
-                    + "; last tenth df/dt= " + lastQuartRate);
+                    + " fitness = " + (1.0 + generation.getFitnessDeviation()));
         } else {
             log.info("Generation " + generation.getGenerationIndex());
         }
