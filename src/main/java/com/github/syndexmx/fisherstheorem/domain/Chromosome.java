@@ -35,8 +35,13 @@ public class Chromosome implements Cloneable {
     }
 
     public void mutate(int mutationEffect) {
-        int mutatedGene = MathUtils.getRandom(genes.size());
-        genes.get(mutatedGene).mutate(mutationEffect);
+        List<Gene> clonedGenes = new ArrayList<>();
+        this.genes.stream().forEach(gene -> clonedGenes.add(gene.clone()));
+        this.genes = clonedGenes;
+        int mutatedGeneIndex = MathUtils.getRandom(genes.size());
+        Gene mutatedGene = genes.get(mutatedGeneIndex).clone();
+        mutatedGene.mutate(mutationEffect);
+        genes.set(mutatedGeneIndex, mutatedGene);
         fitnessDeviation = this.collectFitness();
     }
 
@@ -44,10 +49,8 @@ public class Chromosome implements Cloneable {
     public Chromosome clone() {
         try {
             Chromosome cloneChromo = (Chromosome) super.clone();
-            List<Gene> clonedGenes = new ArrayList<>();
-            this.genes.stream().forEach(gene -> clonedGenes.add(gene.clone()));
-            cloneChromo.genes = clonedGenes;
-            cloneChromo.fitnessDeviation = cloneChromo.collectFitness();
+            cloneChromo.genes = genes;
+            cloneChromo.fitnessDeviation = this.fitnessDeviation;
             return cloneChromo;
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
