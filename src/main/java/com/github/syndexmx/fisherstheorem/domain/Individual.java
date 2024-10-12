@@ -25,7 +25,7 @@ public class Individual implements Cloneable{
     @Getter
     double fitness;
 
-    private long FITNESS_SCALING_CONSTANT = 16777216;
+    private long FITNESS_SCALING_CONSTANT = 16777216 * 16;
 
     Individual(GenomeScheme genomeScheme, SimulationScheme simulationScheme) {
         this.paternalGenome = new Genome(genomeScheme);
