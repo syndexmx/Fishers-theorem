@@ -16,7 +16,7 @@ public class Chromosome implements Cloneable {
     List<Gene> genes;
 
     @Getter
-    double fitnessDeviation;
+    long fitnessDeviation; // in arbitrary small integer steps
 
     public Chromosome(Integer numberGenes) {
         List<Gene> generatedGenes = new ArrayList<Gene>();
@@ -27,14 +27,14 @@ public class Chromosome implements Cloneable {
         this.fitnessDeviation = this.collectFitness();
     }
 
-    private double collectFitness() {
-        double joinFitness =
-                genes.stream().mapToDouble(gene -> gene.getFitnessDeviation())
-                        .reduce(0.0, (accumulator, fitnessDeviation) -> accumulator + fitnessDeviation);
+    private long collectFitness() {
+        long joinFitness =
+                genes.stream().mapToLong(gene -> gene.getFitnessDeviation())
+                        .reduce(0, (accumulator, fitnessDeviation) -> accumulator + fitnessDeviation);
         return joinFitness;
     }
 
-    public void mutate(double mutationEffect) {
+    public void mutate(int mutationEffect) {
         int mutatedGene = MathUtils.getRandom(genes.size());
         genes.get(mutatedGene).mutate(mutationEffect);
         fitnessDeviation = this.collectFitness();

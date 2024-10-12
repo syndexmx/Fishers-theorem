@@ -25,6 +25,8 @@ public class Individual implements Cloneable{
     @Getter
     double fitness;
 
+    private long FITNESS_SCALING_CONSTANT = 16777216;
+
     Individual(GenomeScheme genomeScheme, SimulationScheme simulationScheme) {
         this.paternalGenome = new Genome(genomeScheme);
         this.maternalGenome = new Genome(genomeScheme);
@@ -50,7 +52,10 @@ public class Individual implements Cloneable{
     }
 
     private double collectFitness() {
-        return this.fitness = paternalGenome.getFitnessDeviation() + maternalGenome.getFitnessDeviation();
+        long fitnessDeviationInArbitraryUnits = paternalGenome.getFitnessDeviation()
+                + maternalGenome.getFitnessDeviation();
+        this.fitness = (double)fitnessDeviationInArbitraryUnits / (double)FITNESS_SCALING_CONSTANT;
+        return this.fitness;
     }
 
     public Genome getHaploGenome() {
@@ -86,9 +91,9 @@ public class Individual implements Cloneable{
 
     private void mutate(double mutationEffect) {
         if (MathUtils.getRandom(2) == 0) {
-            paternalGenome.mutate(mutationEffect);
+            paternalGenome.mutate((int)Math.round(mutationEffect * FITNESS_SCALING_CONSTANT));
         } else {
-            maternalGenome.mutate(mutationEffect);
+            maternalGenome.mutate((int)Math.round(mutationEffect * FITNESS_SCALING_CONSTANT));
         }
         this.fitness = this.collectFitness();
     }

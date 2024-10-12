@@ -17,7 +17,7 @@ public class Genome implements Cloneable {
     private GenomeScheme genomeScheme;
 
     @Getter
-    double fitnessDeviation;
+    long fitnessDeviation;
 
     public Genome(GenomeScheme genomeScheme) {
         this.genomeScheme = genomeScheme;
@@ -31,14 +31,14 @@ public class Genome implements Cloneable {
         fitnessDeviation = this.collectFitness();
     }
 
-    private double collectFitness() {
-        double joinFitness =
-                chromosomes.stream().mapToDouble(chromosome -> chromosome.getFitnessDeviation())
-                        .reduce(0.0, (accumulator, fitnessDeviation) -> accumulator + fitnessDeviation);
+    private long collectFitness() {
+        long joinFitness =
+                chromosomes.stream().mapToLong(chromosome -> chromosome.getFitnessDeviation())
+                        .reduce(0, (accumulator, fitnessDeviation) -> accumulator + fitnessDeviation);
         return joinFitness;
     }
 
-    public void mutate(double mutationEffect) {
+    public void mutate(int mutationEffect) {
         int mutatedChromosome = genomeScheme.getGeneToChromosomeMap().get(
             MathUtils.getRandom(genomeScheme.getGenesOverall()));
         chromosomes.get(mutatedChromosome).mutate(mutationEffect);

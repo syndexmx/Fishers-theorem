@@ -4,16 +4,16 @@ import lombok.Getter;
 
 public class Gene implements Cloneable {
 
-    public static final double STARTING_FITNESS_DEVIATION = 0.0;
+    public static final int STARTING_FITNESS_DEVIATION = 0;
 
     @Getter
-    private double fitnessDeviation;
+    private int fitnessDeviation; // in arbitrary small integer steps
 
-    Gene(double fitnessDeviation) {
+    Gene(int fitnessDeviation) {
         this.fitnessDeviation = fitnessDeviation;
     }
 
-    public void mutate(double mutationEffect) {
+    public void mutate(int mutationEffect) {
         fitnessDeviation +=mutationEffect;
     }
 
