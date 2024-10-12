@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
     @Getter
     public class ResultsDto {
 
-
         int generation;
 
         double fitness;
@@ -22,6 +21,11 @@ import lombok.NoArgsConstructor;
         double middle2TenthDfDt;
 
         double lastTenthDfDt;
+
+        double firstHalfD2fDt2;
+
+        double secondHalfD2fDt2;
+
 
     }
 

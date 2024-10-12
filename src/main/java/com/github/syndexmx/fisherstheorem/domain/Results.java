@@ -25,4 +25,9 @@ public class Results {
 
     double lastTenthDfDt;
 
+    double firstHalfD2fDt2;
+
+    double secondHalfD2fDt2;
+
+
 }

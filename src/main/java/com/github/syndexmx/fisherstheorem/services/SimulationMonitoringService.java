@@ -84,6 +84,8 @@ public class SimulationMonitoringService {
                 .firstTenthDfDt(resultsEntity.getFirstTenthDfDt())
                 .middle2TenthDfDt(resultsEntity.getMiddle2TenthDfDt())
                 .lastTenthDfDt(resultsEntity.getLastTenthDfDt())
+                .firstHalfD2fDt2(resultsEntity.getFirstHalfD2fDt2())
+                .secondHalfD2fDt2(resultsEntity.getSecondHalfD2fDt2())
                 .build();
     }
 
@@ -129,6 +131,17 @@ public class SimulationMonitoringService {
         ResultsEntity resultsEntity = readResultsEntity(simulationId);
         return resultsEntity.getLastTenthDfDt();
     }
+
+    public Double getFirstHaldD2fDt2(Long simulationId) {
+        ResultsEntity resultsEntity = readResultsEntity(simulationId);
+        return resultsEntity.getFirstHalfD2fDt2();
+    }
+
+    public Double getSecondHaldD2fDt2(Long simulationId) {
+        ResultsEntity resultsEntity = readResultsEntity(simulationId);
+        return resultsEntity.getSecondHalfD2fDt2();
+    }
+
 
     public Double getBeneficialMutationRate(Long simulationId) {
         MutationProfileEntity mutationProfileEntity = readMutationProfileEntity(simulationId);

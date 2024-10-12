@@ -34,4 +34,10 @@ public class ResultsEntity {
     @Column(name = "last_10th_df_dt")
     double lastTenthDfDt;
 
+    @Column(name = "first_half_d2f_dt2")
+    double firstHalfD2fDt2;
+
+    @Column(name = "second_half_d2f_dt2")
+    double secondHalfD2fDt2;
+
 }

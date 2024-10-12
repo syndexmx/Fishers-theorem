@@ -25,6 +25,11 @@ div {
     margin-right: 10%;
 }
 
+#d2fdt2span {
+    color: grey;
+    margin-left: 3%;
+}
+
 #sbutton {
     justify-content: center;
     align-items: center;
